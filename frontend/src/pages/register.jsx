@@ -46,6 +46,7 @@ function Register() {
         body: JSON.stringify({
           email:formData.email,
           password:formData.password,
+          username:formData.username
         })
       })
        if(res.ok){
