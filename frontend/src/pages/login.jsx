@@ -28,17 +28,16 @@ function Login() {
               <label className="text-2xl ">Email</label>
               <input
                 type="text"
-                className="px-4 py-3 "
+                className="px-4 py-3 border-b-1 "
                 placeholder="e.g weresocooked@gmail.com"
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <div className="bg-black w-full h-[1px]"></div>
             </div>
             <div className="input-group  flex flex-col gap-2 w-100%">
               <label className="text-2xl ">Password</label>
               <div className="flex gap-3 items-center justify-between ">
                 <input
-                  className="px-4 py-3 w-[100%]"
+                  className="px-4 py-3 border-b-1 w-[100%]"
                   type={showPassword ? "text" : "password"}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
@@ -49,7 +48,6 @@ function Login() {
                   </button>
                 </span>
               </div>
-              <div className="bg-black w-full h-[1px]"></div>
             </div>
           </div>
           <div className="btn-feild flex justify-center items-center">
