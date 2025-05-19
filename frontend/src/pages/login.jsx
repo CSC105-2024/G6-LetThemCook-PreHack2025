@@ -1,4 +1,14 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 function Login() {
+  const signInNav = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const openEye = <FontAwesomeIcon icon={faEye} />;
+  const closeEye = <FontAwesomeIcon icon={faEyeSlash} />;
   return (
     <div className=" w-full flex-row flex min-h-screen justify-around  bg-[#E9E5DC]  ">
       <div className="left-log hidden md:block">
@@ -20,16 +30,25 @@ function Login() {
                 type="text"
                 className="px-4 py-3"
                 placeholder="e.g weresocooked@gmail.com"
+                onChange={(e) => setEmail(e.target.value)}
               />
               <div className="bg-black w-full h-[1px]"></div>
             </div>
-            <div className="input-group  flex flex-col gap-2">
+            <div className="input-group  flex flex-col gap-2 w-100%">
               <label className="text-2xl">Password</label>
-              <input
-                className="px-4 py-3"
-                type="password"
-                placeholder="e.g weresocooked@gmail.com"
-              />
+              <div className="flex gap-3 items-center justify-between ">
+                <input
+                  className="px-4 py-3 w-[100%]"
+                  type={showPassword ? "text" : "password"}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="e.g weresocooked@gmail.com"
+                />
+                <span>
+                  <button onClick={() => setShowPassword(!showPassword)}>
+                    {showPassword ? openEye : closeEye}
+                  </button>
+                </span>
+              </div>
               <div className="bg-black w-full h-[1px]"></div>
             </div>
           </div>
@@ -38,9 +57,9 @@ function Login() {
               Login
             </button>
           </div>
-          <div className="navigate-signup flex justify-center items-center text-lg">
+          <div className="navigate-signup flex justify-center gap-2 items-center text-lg">
             <p>Don’t have an account?</p>
-            <span className="underline ml-3">Sign Up!</span>
+            <button onClick={()=>signInNav('/register')} className="underline">Sign Up!</button>
           </div>
         </div>
       </div>
