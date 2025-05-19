@@ -1,7 +1,7 @@
 function OtherProfilePage(){
     return(
         <>
-        Other prifek
+        
         </>
     )
 }
