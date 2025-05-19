@@ -1,8 +1,33 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
 function Login() {
+  const handleLogin = async ()=>{
+    try{
+      const res = await fetch("http://localhost:3000/auth/login",{
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+          credentials:"include",
+          body: JSON.stringify({email,password})
+      })
+      let data;
+      try {
+          data = await res.json(); 
+        } catch {
+          const text = await res.text(); 
+          alert(text || "Something went wrong");
+          return;
+        }
+      if(res.ok){
+        alert("login sucess")
+      }
+    }catch (error) {
+        alert("Network error: " + error.message);
+      }
+  }
   const signInNav = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -51,7 +76,7 @@ function Login() {
             </div>
           </div>
           <div className="btn-feild flex justify-center items-center">
-            <button className="bg-[#5C6A51] cursor-pointer rounded-[10px] px-9 py-4 font-bold text-white text-md">
+            <button onClick={handleLogin} className="bg-[#5C6A51] cursor-pointer rounded-[10px] px-9 py-4 font-bold text-white text-md">
               Login
             </button>
           </div>
