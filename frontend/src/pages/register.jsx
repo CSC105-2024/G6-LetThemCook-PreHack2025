@@ -35,7 +35,28 @@ function Register() {
     resolver: zodResolver(RegisterSchema),
   });
 
-  const handleRegister = async (formData) => {};
+  const handleRegister = async (formData) => {
+    try{
+      const res  = await fetch("http://localhost:3000/auth/signup",{
+        method:"POST",
+        headers:{
+          "Content-Type": "application/json",
+        },
+        credentials:"include",
+        body: JSON.stringify({
+          email:formData.email,
+          password:formData.password,
+        })
+      })
+       if(res.ok){
+          loginNav('/');
+       }else{
+        alert("Registration failed");
+       }
+    }catch(e){
+      alert("Network error" + errors.message)
+    }
+  };
   return (
     <>
       <div className="page-container relative  w-full flex-row flex min-h-screen  justify-center items-center md:items-baseline bg-[#E9E5DC]   ">
