@@ -17,31 +17,31 @@ function Login() {
         </div>
       </div>
       <div className="right-log w-full md:w-fit  relative  md:bg-white flex h-screen">
-        <img src="Login\Login-pic2.svg" className="absolute right-0" />
+        <img src="Login\Login-pic2.svg" className="absolute right-0 top-0" />
         <div className="login-container gap-10 w-full flex flex-col justify-center px-20 lg:px-30 ">
-          <div className="left-header flex text-center flex-col">
-            <h3 className="text-5xl text-nowrap">LetThemCook</h3>
+          <div className="left-header gap-3 flex text-center flex-col">
+            <h3 className="text-5xl text-nowrap font-bold">LetThemCook</h3>
             <h4>Let's show off your cooking skills! </h4>
           </div>
           <div className="input-field flex flex-col gap-3">
             <div className="input-group  flex flex-col gap-2">
-              <label className="text-2xl">Email</label>
+              <label className="text-2xl ">Email</label>
               <input
                 type="text"
-                className="px-4 py-3"
+                className="px-4 py-3 "
                 placeholder="e.g weresocooked@gmail.com"
                 onChange={(e) => setEmail(e.target.value)}
               />
               <div className="bg-black w-full h-[1px]"></div>
             </div>
             <div className="input-group  flex flex-col gap-2 w-100%">
-              <label className="text-2xl">Password</label>
+              <label className="text-2xl ">Password</label>
               <div className="flex gap-3 items-center justify-between ">
                 <input
                   className="px-4 py-3 w-[100%]"
                   type={showPassword ? "text" : "password"}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="e.g weresocooked@gmail.com"
+                  placeholder="Password"
                 />
                 <span>
                   <button onClick={() => setShowPassword(!showPassword)}>
@@ -53,13 +53,18 @@ function Login() {
             </div>
           </div>
           <div className="btn-feild flex justify-center items-center">
-            <button className="bg-[#5C6A51] rounded-[10px] px-9 py-4 font-bold text-white text-md">
+            <button className="bg-[#5C6A51] cursor-pointer rounded-[10px] px-9 py-4 font-bold text-white text-md">
               Login
             </button>
           </div>
           <div className="navigate-signup flex justify-center gap-2 items-center text-lg">
             <p>Don’t have an account?</p>
-            <button onClick={()=>signInNav('/register')} className="underline">Sign Up!</button>
+            <button
+              onClick={() => signInNav("/register")}
+              className="underline cursor-pointer"
+            >
+              Sign Up!
+            </button>
           </div>
         </div>
       </div>
