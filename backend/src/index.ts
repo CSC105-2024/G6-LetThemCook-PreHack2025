@@ -4,6 +4,7 @@ import { PrismaClient } from './generated/prisma/index.js'
 import { cors } from 'hono/cors'
 import cookiesRouter from './routes/cookies.ts'
 import authRouter from './routes/auth.routes.ts'
+import { recipeRouter } from './routes/recipe.routes.ts'
 
 const app = new Hono()
 
@@ -29,3 +30,4 @@ serve({
 
 app.route('/cookies',cookiesRouter )
 app.route('/auth', authRouter);
+app.route('/recipe',recipeRouter);

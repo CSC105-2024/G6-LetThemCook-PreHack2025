@@ -1,14 +1,15 @@
 import { db } from "../index.ts";
 import {hash, compare} from 'bcrypt';
 
-export const createUser = async (email:string ,username:string , password:string, bio:string )=>{
+export const createUser = async (email:string ,username:string , password:string, bio:string, pfpURL:string )=>{
     const hashedPassword = await hash(password,10);
     return db.user.create({
         data:{
-            bio,
             email,
             username,
-            password:hashedPassword
+            password:hashedPassword,
+            bio,
+            pfpURL,
         }
     })
 }

@@ -132,7 +132,9 @@ exports.Prisma.RecipeScalarFieldEnum = {
   title: 'title',
   description: 'description',
   image: 'image',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  category: 'category',
+  nationality: 'nationality'
 };
 
 exports.Prisma.IngredientsScalarFieldEnum = {

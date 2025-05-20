@@ -1,34 +1,50 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { data, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function Login() {
-  const handleLogin = async ()=>{
-    try{
-      const res = await fetch("http://localhost:3000/auth/login",{
-        method:"POST",
-        headers: {
-            "Content-Type": "application/json",
-          },
-          credentials:"include",
-          body: JSON.stringify({email,password})
-      })
-      let data;
-      try {
-          data = await res.json(); 
-        } catch {
-          const text = await res.text(); 
-          alert(text || "Something went wrong");
-          return;
-        }
-      if(res.ok){
-        alert("login sucess")
+  const nav = useNavigate();
+  const handleLogin = async () => {
+  try {
+    const res = await fetch("http://localhost:3000/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ email, password }),
+    });
+
+    let data;
+    try {
+      data = await res.json();
+    } catch {
+      const text = await res.text();
+      alert(text || "Something went wrong");
+      return;
+    }
+
+    if (res.ok) {
+      const token = data.token;
+      const payload = JSON.parse(atob(token.split('.')[1])); 
+      const userId = payload.userId;
+
+      if (!userId) {
+        alert("Invalid token: missing userId");
+        return;
       }
-    }catch (error) {
-        alert("Network error: " + error.message);
-      }
+
+      localStorage.setItem("userId", String(userId));
+      alert("Login successful");
+      nav("/add-recipe");
+    } else {
+      alert(data.msg || "Login failed");
+    }
+  } catch (error) {
+    alert("Network error: " + error.message);
   }
-  const signInNav = useNavigate();
+};
+
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

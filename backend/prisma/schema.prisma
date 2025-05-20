@@ -27,10 +27,12 @@ model Recipe {
   id String @id @default(cuid())
   userId Int
   title String
-  description String
+  description String?
   image String?
   createdAt DateTime @default(now())
   ingredients Ingredients[]
+  category String
+  nationality String
   steps Steps[]
   user User @relation(fields: [userId], references: [id])
 }

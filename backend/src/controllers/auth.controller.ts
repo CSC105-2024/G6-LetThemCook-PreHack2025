@@ -5,15 +5,15 @@ import { setCookie } from "hono/cookie";
 import jwt from 'jsonwebtoken';
 type AuthBody= {
     userId:number,
-    username:string,
     email:string,
+    username:string
     password:string,
     bio:string
     pfpURL:string
 }
 export const signup = async (c:Context) =>{
     try{
-        const {username, password, email, bio} = await c.req.json<AuthBody>()
+        const {email, username, password, bio, pfpURL} = await c.req.json<AuthBody>()
         const AlreadyExisting = await authModel.findUser(username,email);
         if(AlreadyExisting){
             return c.json({
@@ -21,7 +21,7 @@ export const signup = async (c:Context) =>{
                 msg:'This account alreay taken'
             },409)
         }
-        const user = await authModel.createUser(username, email , password, bio)
+        const user = await authModel.createUser(email,username, password, bio,pfpURL)
         const token = generateToken(user);
         return c.json({
             success:true,
