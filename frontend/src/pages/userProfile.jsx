@@ -39,17 +39,27 @@ function UserProfile() {
                                     placeholder="Hold up, let me cook..."
                                     className="mt-1 ml-3 mb-4 mr-3 border px-4 py-2 rounded-[10px]" />
                             <div>
-                                <button className="flex float-right px-2 py-1 mx-2 my-2 border rounded-[10px]"> save </button>
+                                <button onClick={toggleDropdown}
+                                className="flex float-right  bg-[#5C6A51] hover:bg-[#38462d] px-2 py-1 mx-2 my-2 text-white rounded-[10px]"> save </button>
                                 </div>
                             </div></>
                         )
                     }</div>
                 </div>
-                <div className="mt-5">
+                {!isOpen &&(
+                <div className="m-5">
                     <h1 className=" w-full px-1 py-2 rounded-[10px]"> Recipe </h1>
+                    <div className="mt-10 mb-10">
                     <div className="m-5 text-center ">No recipe shared yet.</div>
-                    <button className="flex float-right bg-[#5C6A51] text-white px-2 py-1 rounded-[10px] "> Start Now </button>
+                    <div className="flex justify-center">
+                        <button className="flex bg-[#5C6A51] text-white px-2 py-1 rounded-[10px] "> Start Now </button>
+                    </div></div>
                 </div>
+
+                    )
+            
+                }
+
             </div>
         </div>
     );
