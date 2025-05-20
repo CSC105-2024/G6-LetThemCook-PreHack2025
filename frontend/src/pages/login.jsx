@@ -3,7 +3,48 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 function Login() {
-  const signInNav = useNavigate();
+  const nav = useNavigate();
+  const handleLogin = async () => {
+  try {
+    const res = await fetch("http://localhost:3000/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ email, password }),
+    });
+
+    let data;
+    try {
+      data = await res.json();
+    } catch {
+      const text = await res.text();
+      alert(text || "Something went wrong");
+      return;
+    }
+
+    if (res.ok) {
+      const token = data.token;
+      const payload = JSON.parse(atob(token.split('.')[1])); 
+      const userId = payload.userId;
+
+      if (!userId) {
+        alert("Invalid token: missing userId");
+        return;
+      }
+
+      localStorage.setItem("userId", String(userId));
+      alert("Login successful");
+      nav("/add-recipe");
+    } else {
+      alert(data.msg || "Login failed");
+    }
+  } catch (error) {
+    alert("Network error: " + error.message);
+  }
+};
+
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -51,14 +92,14 @@ function Login() {
             </div>
           </div>
           <div className="btn-feild flex justify-center items-center">
-            <button className="bg-[#5C6A51] cursor-pointer rounded-[10px] px-9 py-4 font-bold text-white text-md">
+            <button onClick={handleLogin} className="bg-[#5C6A51] cursor-pointer rounded-[10px] px-9 py-4 font-bold text-white text-md">
               Login
             </button>
           </div>
           <div className="navigate-signup flex justify-center gap-2 items-center text-lg">
             <p>Don’t have an account?</p>
             <button
-              onClick={() => signInNav("/register")}
+              onClick={() => nav("/register")}
               className="underline cursor-pointer"
             >
               Sign Up!

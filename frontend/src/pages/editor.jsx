@@ -86,7 +86,7 @@ function Editor() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
 
@@ -107,6 +107,8 @@ function Editor() {
 
     setErrors({}); 
     const formData = new FormData();
+    const userId = parseInt(localStorage.getItem("userId"))
+    if(userId) formData.append("userId", userId)
     formData.append("title", title);
     formData.append("nationality", nationality);
     formData.append("category", category);
@@ -118,14 +120,31 @@ function Editor() {
     steps.forEach((step, i) => formData.append(`steps[${i}]`, step));
 
     console.log("Submitting FormData:", formData);
+    
+
+    try{
+      const res = await fetch("http://localhost:3000/recipe/addRecipe",{
+        method:"POST",
+        credentials:"include",
+        body: formData
+      })
+      if(!res.ok){
+        const errorText = await res.text();
+        console.error("Failed to create post:", errorText);
+        return;
+      }
+      const data = await res.json();
+      console.log(data);
+
+    }catch (err) {
+    console.error("Network error:", err);
+  }
   };
 
   return (
     <div className="editor-container">
       <form onSubmit={handleSubmit}>
         <h4>Add your recipe</h4>
-
-        {/* Title */}
         <div className="inputTitle">
           <input
             placeholder="Recipe title"
