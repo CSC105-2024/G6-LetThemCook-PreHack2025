@@ -99,7 +99,7 @@ function Login() {
           <div className="navigate-signup flex justify-center gap-2 items-center text-lg">
             <p>Don’t have an account?</p>
             <button
-              onClick={() => signInNav("/register")}
+              onClick={() => nav("/register")}
               className="underline cursor-pointer"
             >
               Sign Up!
