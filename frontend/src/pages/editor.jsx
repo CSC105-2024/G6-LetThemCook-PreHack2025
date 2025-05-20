@@ -41,17 +41,17 @@ function Editor() {
     const newIngredients = [...ingredients];
     newIngredients[index] = value;
     setIngredients(newIngredients);
-    
-  if (submitted && value.trim()) {
-    setErrors((prev) => {
-      const newErrors = { ...prev };
-      if (newErrors.ingredients?.[index]) {
-        newErrors.ingredients[index] = undefined;
-      }
-      return newErrors;
-    });
-  }
-}
+
+    if (submitted && value.trim()) {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        if (newErrors.ingredients?.[index]) {
+          newErrors.ingredients[index] = undefined;
+        }
+        return newErrors;
+      });
+    }
+  };
 
   const handleAddStep = (e) => {
     e.preventDefault();
@@ -67,14 +67,14 @@ function Editor() {
     const newSteps = [...steps];
     newSteps[index] = value;
     setSteps(newSteps);
-    if(submitted && value.trim()){
-      setErrors((prev)=>{
-        const newErrors = {...prev};
+    if (submitted && value.trim()) {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
         if (newErrors.steps?.[index]) {
-        newErrors.steps[index] = undefined;
-      }
-      return newErrors;
-      })
+          newErrors.steps[index] = undefined;
+        }
+        return newErrors;
+      });
     }
   };
 
@@ -105,10 +105,10 @@ function Editor() {
       return;
     }
 
-    setErrors({}); 
+    setErrors({});
     const formData = new FormData();
-    const userId = parseInt(localStorage.getItem("userId"))
-    if(userId) formData.append("userId", userId)
+    const userId = parseInt(localStorage.getItem("userId"));
+    if (userId) formData.append("userId", userId);
     formData.append("title", title);
     formData.append("nationality", nationality);
     formData.append("category", category);
@@ -120,43 +120,64 @@ function Editor() {
     steps.forEach((step, i) => formData.append(`steps[${i}]`, step));
 
     console.log("Submitting FormData:", formData);
-    
 
-    try{
-      const res = await fetch("http://localhost:3000/recipe/addRecipe",{
-        method:"POST",
-        credentials:"include",
-        body: formData
-      })
-      if(!res.ok){
+    try {
+      const res = await fetch("http://localhost:3000/recipe/addRecipe", {
+        method: "POST",
+        credentials: "include",
+        body: formData,
+      });
+      if (!res.ok) {
         const errorText = await res.text();
         console.error("Failed to create post:", errorText);
         return;
       }
       const data = await res.json();
       console.log(data);
-
-    }catch (err) {
-    console.error("Network error:", err);
-  }
+    } catch (err) {
+      console.error("Network error:", err);
+    }
   };
 
   return (
-    <div className="editor-container">
-      <form onSubmit={handleSubmit}>
-        <h4>Add your recipe</h4>
-        <div className="inputTitle">
+    <div className="editor-container flex min-h-screen justify-center items-center  bg-[#E9E5DC]">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white relative md:px-10 mt-20 mb-20 px-7 py-10 flex flex-col gap-5"
+      >
+        <div className="tape-container absolute top-[-20px] left-0 w-full flex items-center justify-center">
+          <div className="tape  h-10 w-40 bg-[#AE7E67] opacity-90"></div>
+        </div>
+        <div className="circle-row flex flex-row justify-between">
+          <div className="circle bg-[#D9D9D9] h-5 w-5 rounded-full"></div>
+          <div className="circle bg-[#D9D9D9] h-5 w-5 rounded-full"></div>
+          <div className="circle bg-[#D9D9D9] h-5 w-5 rounded-full"></div>
+          <div className="circle bg-[#D9D9D9] h-5 w-5 rounded-full"></div>
+          <div className="circle bg-[#D9D9D9] h-5 w-5 rounded-full"></div>
+          <div className="circle bg-[#D9D9D9] h-5 w-5 rounded-full"></div>
+          <div className="circle bg-[#D9D9D9] h-5 w-5 rounded-full"></div>
+          <div className="circle bg-[#D9D9D9] h-5 w-5 rounded-full"></div>
+          <div className="circle bg-[#D9D9D9] h-5 w-5 rounded-full"></div>
+        </div>
+        <h4 className="text-3xl font-bold">Add your recipe</h4>
+        <div className="inputTitle flex flex-col gap-2">
+          <label>Recipe Title <span className="text-red-500">*</span> </label>
           <input
-            placeholder="Recipe title"
+            className="px-4 py-3 border-1 w-full rounded-[10px]"
+            placeholder="e.g Lasagna"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
-          {submitted && errors.title && <p>{errors.title._errors[0]}</p>}
+          {submitted && errors.title && (
+            <p className="text-red-500 pt-2">{errors.title._errors[0]}</p>
+          )}
         </div>
-        <div className="dropdowm">
-          <div>
-            <label>Nationality</label>
+        <div className="dropd">
+        <div className="dropdowm flex w-full flex-col md:flex-row gap-5 ">
+          <div className="md:w-1/2 flex flex-col gap-2">
+          <label className="w-1/2">Nationality</label>
             <select
+              className="w-full border-1 rounded-[10px] px-2 py-2"
               value={nationality}
               onChange={(e) => setNationality(e.target.value)}
             >
@@ -165,9 +186,10 @@ function Editor() {
               <option>Korean</option>
             </select>
           </div>
-          <div>
-            <label>Category</label>
+          <div className="md:w-1/2 flex flex-col gap-2">
+          <label className="w-1/2">Category</label>
             <select
+              className="w-full border-1 rounded-[10px] px-2 py-2"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
@@ -178,9 +200,10 @@ function Editor() {
             </select>
           </div>
         </div>
-        <div className="imgfield">
+        </div>
+        <div className="imgfield md:w-[500px] flex-col flex border-1 rounded-[10px]">
           <div
-            className="insideimg"
+            className="insideimg  h-[300px] flex justify-center items-center "
             style={{
               backgroundImage: imagePreview
                 ? `url(${imagePreview})`
@@ -190,78 +213,106 @@ function Editor() {
             }}
           >
             {!imagePreview && <img src="AddMenu/upload_icon.svg" />}
-            <input type="file" onChange={handleImageChange} />
           </div>
+          <input
+            className="border-1 px-2 py-5 m-3"
+            type="file"
+            onChange={handleImageChange}
+          />
         </div>
-        <input
+        <div className="des flex flex-col gap-2">
+        <p>Description</p>
+        <textarea
+          className="px-4 py-3 border-1 w-full rounded-[10px]"
           type="text"
-          placeholder="Description"
+          placeholder="e.g.This lasagna recipe takes a little work, but it is so satisfying and filling that it's worth it! "
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
+        </div>
         <div className="ingreInput">
-          <h4>Ingredients</h4>
+          <h4 className="font-bold text-2xl">Ingredients</h4>
           <ul className="addIngreBox">
             {ingredients.map((ing, index) => (
-              <li key={index}>
+              <li key={index} className="flex gap-2 py-3">
                 <input
+                  className="px-4 py-3 border-1 w-full rounded-[10px]"
                   placeholder="e.g. 1/2 tsp salt"
                   value={ing}
-                  onChange={(e) => handleIngredientChange(index, e.target.value)}
+                  onChange={(e) =>
+                    handleIngredientChange(index, e.target.value)
+                  }
                 />
                 <button onClick={(e) => handleRemoveIngredient(e, index)}>
-                  <img src="AddMenu/bin.svg" alt="remove" />
+                  <img src="AddMenu/bin.svg" alt="remove" className="w-10 cursor-pointer" />
                 </button>
-                {submitted &&
-                  errors.ingredients?.[index]?._errors && (
-                    <p>{errors.ingredients[index]._errors[0]}</p>
-                  )}
+                {submitted && errors.ingredients?.[index]?._errors && (
+                  <p className="text-red-500">{errors.ingredients[index]._errors[0]}</p>
+                )}
               </li>
             ))}
           </ul>
           {submitted && errors.ingredients?._errors && (
-            <p>{errors.ingredients._errors[0]}</p>
+            <p className="text-red-500">{errors.ingredients._errors[0]}</p>
           )}
-          <div className="addIngre">
-            <button onClick={handleAddIngredient}>+ADD INGREDIENT</button>
+          <div className="addIngre flex justify-end pr-10 pt-3">
+            <button
+              className="font-bold hover:underline cursor-pointer"
+              onClick={handleAddIngredient}
+            >
+              +ADD INGREDIENT
+            </button>
           </div>
         </div>
 
         <hr />
         <div className="DirectionInput">
-          <h4>Directions</h4>
-          <ul className="addIngreBox">
+          <h4 className="font-bold text-2xl">Directions</h4>
+          <ul className="addDirecBox">
             {steps.map((step, index) => (
-              <li key={index}>
-                <input
+              <li key={index} className="flex gap-2 py-3">
+                <textarea
+                  className="px-4 py-3 border-1 w-full rounded-[10px]"
                   placeholder="e.g. Heat butter and sauté onions..."
                   value={step}
                   onChange={(e) => handleStepChange(index, e.target.value)}
                 />
                 <button onClick={(e) => handleRemoveStep(e, index)}>
-                  <img src="AddMenu/bin.svg" alt="remove" />
+                  <img src="AddMenu/bin.svg" alt="remove" className="w-10 cursor-pointer"  />
                 </button>
-                {submitted &&
-                  errors.steps?.[index]?._errors && (
-                    <p>{errors.steps[index]._errors[0]}</p>
-                  )}
+                {submitted && errors.steps?.[index]?._errors && (
+                  <p className="text-red-500">
+                    {errors.steps[index]._errors[0]}
+                  </p>
+                )}
               </li>
             ))}
           </ul>
           {submitted && errors.steps?._errors && (
-            <p>{errors.steps._errors[0]}</p>
+            <p className="text-red-500">{errors.steps._errors[0]}</p>
           )}
-          <div className="addStep">
-            <button onClick={handleAddStep}>+ADD STEP</button>
+          <div className="addStep flex justify-end pr-10 pt-3">
+            <button
+              className="font-bold hover:underline cursor-pointer"
+              onClick={handleAddStep}
+            >
+              +ADD STEP
+            </button>
           </div>
         </div>
 
         <hr />
-        <div className="edit-btn">
-          <button type="button" onClick={() => window.location.reload()}>
+        <div className="edit-btn flex justify-end gap-3">
+          <button
+            className="cursor-pointer rounded-[10px] px-5 py-4 font-bold text-black text-md  "
+            type="button"
+            onClick={() => window.location.reload()}
+          >
             CANCEL
           </button>
-          <button type="submit">SUBMIT</button>
+          <button className="cursor-pointer rounded-[10px] px-5 py-4 font-bold text-white text-md bg-[#AE7E67] " type="submit">
+            SUBMIT
+          </button>
         </div>
       </form>
     </div>
