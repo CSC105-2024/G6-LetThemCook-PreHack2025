@@ -201,7 +201,7 @@ function Editor() {
           </div>
         </div>
         </div>
-        <div className="imgfield md:w-[500px] flex-col flex border-1 rounded-[10px]">
+        <div className="imgfield md:w-[500px] flex-col flex border-1 rounded-[10px] ">
           <div
             className="insideimg  h-[300px] flex justify-center items-center "
             style={{
@@ -214,11 +214,20 @@ function Editor() {
           >
             {!imagePreview && <img src="AddMenu/upload_icon.svg" />}
           </div>
-          <input
-            className="border-1 px-2 py-5 m-3"
-            type="file"
-            onChange={handleImageChange}
-          />
+          <div className="inputImgbttn flex justify-center items-center">
+              <input
+              id="imageUpload"
+              className="hidden"
+              type="file"
+              onChange={handleImageChange}
+            />
+            <label 
+            htmlFor="imageUpload"
+            className=" my-10 cursor-pointer bg-[#6b675f] hover:bg-[#5c5851] text-white font-bold py-2 px-4 rounded-[10px]">
+              CHOOSE FILE
+            </label>
+
+          </div>
         </div>
         <div className="des flex flex-col gap-2">
         <p>Description</p>

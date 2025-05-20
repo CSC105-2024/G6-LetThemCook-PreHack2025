@@ -86,6 +86,9 @@ Prisma.NullTypes = {
  * Enums
  */
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -129,6 +132,33 @@ exports.Prisma.SortOrder = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.UserOrderByRelevanceFieldEnum = {
+  email: 'email',
+  username: 'username',
+  password: 'password',
+  bio: 'bio',
+  pfpURL: 'pfpURL'
+};
+
+exports.Prisma.RecipeOrderByRelevanceFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  image: 'image',
+  category: 'category',
+  nationality: 'nationality'
+};
+
+exports.Prisma.IngredientsOrderByRelevanceFieldEnum = {
+  name: 'name',
+  recipeId: 'recipeId'
+};
+
+exports.Prisma.StepsOrderByRelevanceFieldEnum = {
+  Step_description: 'Step_description',
+  recipeId: 'recipeId'
 };
 
 
@@ -176,7 +206,7 @@ const config = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "sqlite",
+  "activeProvider": "mysql",
   "inlineDatasources": {
     "db": {
       "url": {
@@ -185,8 +215,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id       Int      @id @default(autoincrement())\n  email    String   @unique\n  username String   @unique\n  password String\n  bio      String?\n  pfpURL   String?\n  recipe   Recipe[]\n}\n\nmodel Recipe {\n  id          String        @id @default(cuid())\n  userId      Int\n  title       String\n  description String?\n  image       String?\n  createdAt   DateTime      @default(now())\n  ingredients Ingredients[]\n  category    String\n  nationality String\n  steps       Steps[]\n  user        User          @relation(fields: [userId], references: [id])\n}\n\nmodel Ingredients {\n  id       Int    @id @default(autoincrement())\n  name     String\n  recipeId String\n  recipe   Recipe @relation(fields: [recipeId], references: [id])\n}\n\nmodel Steps {\n  id               Int    @id @default(autoincrement())\n  Step_description String\n  recipeId         String\n  recipe           Recipe @relation(fields: [recipeId], references: [id])\n}\n",
-  "inlineSchemaHash": "f581a658115c34c1d37add906deff3c5ddb947b02f5d3a6d94a6d20f97c62997",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider          = \"mysql\"\n  url               = env(\"DATABASE_URL\")\n  shadowDatabaseUrl = env(\"SHADOW_DATABASE_URL\")\n}\n\nmodel User {\n  id       Int      @id @default(autoincrement())\n  email    String   @unique\n  username String   @unique\n  password String\n  bio      String?\n  pfpURL   String?\n  recipe   Recipe[]\n}\n\nmodel Recipe {\n  id          String        @id @default(cuid())\n  userId      Int\n  title       String\n  description String?\n  image       String?\n  createdAt   DateTime      @default(now())\n  ingredients Ingredients[]\n  category    String\n  nationality String\n  steps       Steps[]\n  user        User          @relation(fields: [userId], references: [id])\n}\n\nmodel Ingredients {\n  id       Int    @id @default(autoincrement())\n  name     String\n  recipeId String\n  recipe   Recipe @relation(fields: [recipeId], references: [id])\n}\n\nmodel Steps {\n  id               Int    @id @default(autoincrement())\n  Step_description String\n  recipeId         String\n  recipe           Recipe @relation(fields: [recipeId], references: [id])\n}\n",
+  "inlineSchemaHash": "24c714c287221bf1d1a550a518dc7bb4ba4cc10c8af66c58b88505f67582ca40",
   "copyEngine": true
 }
 config.dirname = '/'
