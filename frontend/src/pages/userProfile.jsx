@@ -13,7 +13,6 @@ function UserProfile() {
             const imageURL = URL.createObjectURL(file);
             setProfileURL(imageURL);
         }
-
     }
 
     return (
@@ -22,16 +21,16 @@ function UserProfile() {
                 <div className="md:max-w-sm lg:max-w-md xl:max-w-lg mx-auto items-center ">
                     <h1 className="text-black font-semibold text-lg  mb-9">My Profile</h1>
                     <div className="flex items-center">
-                        <div className="flex items-center md:ml-4 md:w-26 md:h-26 ml-1 w-24 h-24 ">
-                            <img src={profileURL} className="rounded-full" />
+                        <div className="w-20 h-20 rounded-full overflow-hidden flex items-center flex-shrink-0 justify-center">
+                            <img src={profileURL} className="w-full h-full object-cover" />
                         </div>
-        
-                        <p className="ml-4 md:ml-8 w-full border mt-2 px-4 py-2 rounded-[10px] h-fit "> Guest </p>
+
+                        <p className="ml-4 md:ml-8 w-full border mt-2 px-4 py-2 rounded-[10px]  "> Guest </p>
                     </div>
                     <div>
-                        <p className="mt-0 md:mt-2 w-full border px-4 py-2 rounded-[10px]"> Bio </p>
+                        <p className="mt-3 md:mt-4 w-full border px-4 py-2 rounded-[10px]"> Bio </p>
                     </div>
-                    <div> 
+                    <div>
                         <button onClick={toggleDropdown}
                             className="bg-[#AE7E67] text-white text-left hover:bg-[#976a55] mt-5 w-full border px-4 py-2 rounded-[10px]">
                             Edit Profile </button>
@@ -39,9 +38,16 @@ function UserProfile() {
                             {isOpen && (
                                 <><div className="ml-2 mr-2 flex flex-col justify-center border rounded-[8px]">
                                     <div className="flex justify-center mt-3">
-                                        <label className="cursor-pointer">
-                                        <img src={defaulticon} className="md:w-18 md:h-18 w-16 h-16 rounded-full" />
+                                        <label htmlFor="profile-upload" className="cursor-pointer">
+                                            <img src={profileURL} className="md:w-18 md:h-18 w-16 h-16 rounded-full object-cover" />
                                         </label>
+                                        <input
+                                            id="profile-upload"
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={handleProfileChange}
+                                            className="hidden"
+                                        />
                                     </div>
                                     <span className=" ml-3 mt-3"> Username </span>
                                     <input
