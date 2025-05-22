@@ -2,6 +2,7 @@ import type { Context } from "hono";
 import { db } from "../index.ts";
 import * as postModel from "../modles/post.model.ts"
 import { title } from "process";
+import { uploadFile } from "../utils/uploadImage.ts";
 type recipeBody = {
   userId:number,
   title:string,
@@ -19,6 +20,7 @@ export const getRecipe = async(c:Context)=>{
             return c.json({ success: false, msg: 'Unauthorized' }, 401);
         }
         const recipe = await postModel.getRecipe(userId);
+
         return c.json({
             success:true,
             data:recipe,
@@ -67,16 +69,14 @@ export const createRecipe = async (c: Context) => {
       }
     }
 
-    const imageBuffer = image ? await image.arrayBuffer() : null;
-    const imageBase64 = imageBuffer
-      ? Buffer.from(imageBuffer).toString("base64")
-      : null;
+   const imagePath = image ? await uploadFile(image) : null;
+
 
     const recipe = await postModel.addRecipe(
       userId,
       title,
       description,
-      imageBase64,
+      imagePath,
       ingredients,
       category,
       nationality,

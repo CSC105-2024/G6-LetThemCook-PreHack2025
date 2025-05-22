@@ -161,7 +161,9 @@ function Editor() {
         </div>
         <h4 className="text-3xl font-bold">Add your recipe</h4>
         <div className="inputTitle flex flex-col gap-2">
-          <label>Recipe Title <span className="text-red-500">*</span> </label>
+          <label>
+            Recipe Title <span className="text-red-500">*</span>{" "}
+          </label>
           <input
             className="px-4 py-3 border-1 w-full rounded-[10px]"
             placeholder="e.g Lasagna"
@@ -173,33 +175,34 @@ function Editor() {
           )}
         </div>
         <div className="dropd">
-        <div className="dropdowm flex w-full flex-col md:flex-row gap-5 ">
-          <div className="md:w-1/2 flex flex-col gap-2">
-          <label className="w-1/2">Nationality</label>
-            <select
-              className="w-full border-1 rounded-[10px] px-2 py-2"
-              value={nationality}
-              onChange={(e) => setNationality(e.target.value)}
-            >
-              <option>Thai</option>
-              <option>Italian</option>
-              <option>Korean</option>
-            </select>
+          <div className="dropdowm flex w-full flex-col md:flex-row gap-5 ">
+            <div className="md:w-1/2 flex flex-col gap-2">
+              <label className="w-1/2">Nationality</label>
+              <select
+                className="w-full border-1 rounded-[10px] px-2 py-2"
+                value={nationality}
+                onChange={(e) => setNationality(e.target.value)}
+              >
+                <option>Thai</option>
+                <option>Japanese</option>
+                <option>Italian</option>
+                <option>Korean</option>
+              </select>
+            </div>
+            <div className="md:w-1/2 flex flex-col gap-2">
+              <label className="w-1/2">Category</label>
+              <select
+                className="w-full border-1 rounded-[10px] px-2 py-2"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                <option>Dessert</option>
+                <option>Fried</option>
+                <option>Boiled</option>
+                <option>Soup</option>
+              </select>
+            </div>
           </div>
-          <div className="md:w-1/2 flex flex-col gap-2">
-          <label className="w-1/2">Category</label>
-            <select
-              className="w-full border-1 rounded-[10px] px-2 py-2"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <option>Dessert</option>
-              <option>Fried</option>
-              <option>Boiled</option>
-              <option>Soup</option>
-            </select>
-          </div>
-        </div>
         </div>
         <div className="imgfield md:w-[500px] flex-col flex border-1 rounded-[10px] ">
           <div
@@ -215,29 +218,29 @@ function Editor() {
             {!imagePreview && <img src="AddMenu/upload_icon.svg" />}
           </div>
           <div className="inputImgbttn flex justify-center items-center">
-              <input
+            <input
               id="imageUpload"
               className="hidden"
               type="file"
               onChange={handleImageChange}
             />
-            <label 
-            htmlFor="imageUpload"
-            className=" my-10 cursor-pointer bg-[#6b675f] hover:bg-[#5c5851] text-white font-bold py-2 px-4 rounded-[10px]">
+            <label
+              htmlFor="imageUpload"
+              className=" my-10 cursor-pointer bg-[#6b675f] hover:bg-[#5c5851] text-white font-bold py-2 px-4 rounded-[10px]"
+            >
               CHOOSE FILE
             </label>
-
           </div>
         </div>
         <div className="des flex flex-col gap-2">
-        <p>Description</p>
-        <textarea
-          className="px-4 py-3 border-1 w-full rounded-[10px]"
-          type="text"
-          placeholder="e.g.This lasagna recipe takes a little work, but it is so satisfying and filling that it's worth it! "
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
+          <p>Description</p>
+          <textarea
+            className="px-4 py-3 border-1 w-full rounded-[10px]"
+            type="text"
+            placeholder="e.g.This lasagna recipe takes a little work, but it is so satisfying and filling that it's worth it! "
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
         </div>
         <div className="ingreInput">
           <h4 className="font-bold text-2xl">Ingredients</h4>
@@ -253,10 +256,16 @@ function Editor() {
                   }
                 />
                 <button onClick={(e) => handleRemoveIngredient(e, index)}>
-                  <img src="AddMenu/bin.svg" alt="remove" className="w-10 cursor-pointer" />
+                  <img
+                    src="AddMenu/bin.svg"
+                    alt="remove"
+                    className="w-10 cursor-pointer"
+                  />
                 </button>
                 {submitted && errors.ingredients?.[index]?._errors && (
-                  <p className="text-red-500">{errors.ingredients[index]._errors[0]}</p>
+                  <p className="text-red-500">
+                    {errors.ingredients[index]._errors[0]}
+                  </p>
                 )}
               </li>
             ))}
@@ -287,7 +296,11 @@ function Editor() {
                   onChange={(e) => handleStepChange(index, e.target.value)}
                 />
                 <button onClick={(e) => handleRemoveStep(e, index)}>
-                  <img src="AddMenu/bin.svg" alt="remove" className="w-10 cursor-pointer"  />
+                  <img
+                    src="AddMenu/bin.svg"
+                    alt="remove"
+                    className="w-10 cursor-pointer"
+                  />
                 </button>
                 {submitted && errors.steps?.[index]?._errors && (
                   <p className="text-red-500">
@@ -319,7 +332,10 @@ function Editor() {
           >
             CANCEL
           </button>
-          <button className="cursor-pointer rounded-[10px] px-5 py-4 font-bold text-white text-md bg-[#AE7E67] " type="submit">
+          <button
+            className="cursor-pointer rounded-[10px] px-5 py-4 font-bold text-white text-md bg-[#AE7E67] "
+            type="submit"
+          >
             SUBMIT
           </button>
         </div>
