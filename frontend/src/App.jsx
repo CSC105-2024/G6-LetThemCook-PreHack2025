@@ -8,16 +8,22 @@ import HomePage from './pages/homepage';
 import Register from './pages/register';
 import Editor from './pages/editor';
 import HomePageTest from './pages/homepagetest';
+import CategoryPage from "./pages/CategoryPage";
+import CountryChoosePage from './pages/countryChoose';
+import ScrollToTop from './services/scrollToTop';
 function App() {
   return (
     <>
       <Router>
+        <ScrollToTop/>
         <Routes>
           <Route path='/' element={<Login/>}/>
           <Route path='/homePage' element={<HomePage/>}/>
           <Route path='/register' element={<Register/>}/>
           <Route path='/add-recipe' element={<Editor/>}/>
           <Route path='/homeTest' element={<HomePageTest/>}/>
+          <Route path="/category/:type" element={<CategoryPage />} />
+          <Route path="/pages/countryChoose" element={<CountryChoosePage />} />
         </Routes>
       </Router>
     </>
