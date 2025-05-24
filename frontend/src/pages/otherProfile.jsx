@@ -10,7 +10,6 @@ function OtherProfilePage() {
 
     return (
         <>
-        <NavBar/>
         <div className="min-h-screen bg-[#E9E5DC] flex items-center justify-center px-4">
                    <div className="w-full max-w-sm md:max-w-xl lg:max-w-2xl bg-white p-5 sm:p-8 rounded-lg shadow-md">
                        <div className="md:max-w-sm lg:max-w-md xl:max-w-lg mx-auto items-center ">
