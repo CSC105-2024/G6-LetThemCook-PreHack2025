@@ -9,8 +9,7 @@ function RecipeDisplay({ recipe }) {
 
     <div className="min-h-screen bg-[#E9E5DC] p-6 md:flex flex-col justify-center items-center">
       <div className="bg-white w-full max-w-5xl rounded-lg shadow-md p-6 md:p-18 ">
-
-        <div className="flex flex-col md:flex-row gap-6">
+        <div className="flex flex-col md:flex-row gap-6 mt-10">
           <img src={recipe.imageUrl} alt="Recipe" className="w-full md:w-64 rounded-md" />
           <div className="flex-1">
             <h1 className="text-3xl font-bold">{recipe.title}</h1>
