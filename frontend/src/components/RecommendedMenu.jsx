@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { fetchAllRecipe } from "../services/getAllRecipeService";
 const allMenus = [
   { id: 1, name: "Lasagna", image: "/Homepage/lasagna.svg" },
   { id: 2, name: "Pancake", image: "/Homepage/Pancake.svg" },
@@ -16,13 +16,18 @@ function RecommendedMenu() {
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(2);
 
-  const getRandomMenus = () => {
-    const shuffled = [...allMenus].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 4);
-  };
-
   useEffect(() => {
-    setRecommendedMenus(getRandomMenus());
+    //setRecommendedMenus(getRandomMenus());
+    const loadAllRecipe = async () =>{
+      try{
+        const allRecipe = await fetchAllRecipe();
+        const shffled = allRecipe.sort(()=> 0.5 - Math.random()).slice(0,4)
+        setRecommendedMenus(shffled);
+      }catch(error){
+        console.error("Error fetching recipes:", error);
+      }
+    }
+    loadAllRecipe();
 
     const updateItemsPerPage = () => {
       setItemsPerPage(window.innerWidth < 768 ? 1 : 2);
@@ -62,8 +67,8 @@ function RecommendedMenu() {
               className="flex flex-col items-center w-full max-w-[300px] md:max-w-[400px]"
             >
               <img
-                src={menu.image}
-                alt={menu.name}
+                src={`http://localhost:3000${menu.image}`} 
+                alt={menu.title}
                 className="w-full h-auto aspect-[4/3] object-cover rounded-lg shadow-md"
               />
               <p className="mt-3 font-semibold text-center text-lg">{menu.name}</p>
