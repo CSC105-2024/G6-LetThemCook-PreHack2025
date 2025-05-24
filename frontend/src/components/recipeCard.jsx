@@ -5,7 +5,7 @@ import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 const recipes = [
   { title: "Spaghetti with Tomato Sauce", image: "/Homepage/ItalianF.svg" },
   { title: "Pancake", image: "/Homepage/Pancake.svg" },
-  { title: "Egg", image: "/Homepage/lasagna.svg" },
+  { title: "Lasagna", image: "/Homepage/lasagna.svg" },
 ];
 
 const RecipeCard = () => {
