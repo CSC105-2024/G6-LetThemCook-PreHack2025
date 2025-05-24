@@ -36,7 +36,7 @@ function Login() {
 
       localStorage.setItem("userId", String(userId));
       alert("Login successful");
-      nav("/add-recipe");
+      nav("/homePage");
     } else {
       alert(data.msg || "Login failed");
     }

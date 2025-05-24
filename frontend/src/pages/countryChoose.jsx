@@ -4,6 +4,8 @@ import FilterSection from "../components/FilterSection";
 import { useMemo, useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { fetchAllRecipe } from "../services/getAllRecipeService";
+
 
 const allFoods = [
   { name: "Tom Yum Goong", img: "/Homepage/tom.png", nationality: "Thai", category: "Boiled" },
@@ -25,6 +27,18 @@ const allFoods = [
 ];
 
 function CountryChoosePage() {
+  const [allFoods,setAllFoods] = useState([]);
+  useEffect(()=>{
+    const loadAllRecipe = async ()=>{
+      try{
+        const allRecipe = await fetchAllRecipe();
+        setAllFoods(allRecipe);
+      }catch(error){
+        console.error("Error fetching recipes:", error);
+      }
+    }
+    loadAllRecipe();
+  },[])
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
@@ -33,12 +47,20 @@ function CountryChoosePage() {
 
   const filteredFoods = useMemo(() => {
     return allFoods.filter((food) => {
+      const hasnationality = selectedNationalities.length > 0 ;
+      const hasCategory = selectedCategories.length > 0;
       const matchNationality = selectedNationalities.includes(food.nationality);
       const matchCategory = selectedCategories.includes(food.category);
-      if (selectedNationalities.length === 0 && selectedCategories.length === 0) {
+      if(!hasnationality && !hasCategory){
         return true;
       }
-      return matchNationality || matchCategory;
+      if(hasnationality && !hasCategory ){
+        return matchNationality;
+      }
+      if(hasCategory && !hasnationality){
+        return matchCategory;
+      }
+      return matchNationality&&matchCategory;
     });
   }, [selectedNationalities, selectedCategories]);
 
@@ -79,12 +101,12 @@ function CountryChoosePage() {
               <div key={startIndex + index} className="flex flex-col items-center w-full max-w-[450px]">
                 <div className="w-full max-w-[450px] h-[240px] overflow-hidden rounded-xl shadow-md">
                   <img
-                    src={food.img}
-                    alt={food.name}
+                    src={`http://localhost:3000${food.image}`}
+                    alt={food.title}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <p className="mt-2 font-semibold text-center">{food.name}</p>
+                <p className="mt-2 font-semibold text-center">{food.title}</p>
               </div>
             ))}
           </div>

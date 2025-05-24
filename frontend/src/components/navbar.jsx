@@ -20,11 +20,12 @@ function NavBar() {
 
     setDropdownOpen(false);
     setSidebarOpen(false);
-    navigate("/pages/login");
+    localStorage.clear();
+    navigate("/");
   };
 
   const handlePostRecipe = () => {
-    navigate("/pages/editor");
+    navigate("/add-recipe");
   };
 
   const storedUser = JSON.parse(localStorage.getItem("user")) || {
