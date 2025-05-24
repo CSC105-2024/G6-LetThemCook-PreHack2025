@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 const recipeSchema = z.object({
   title: z.string().min(1, "Please enter a recipe title."),
   nationality: z.string().min(1),
@@ -16,6 +16,7 @@ const recipeSchema = z.object({
 });
 
 function Editor() {
+  const navigate = useNavigate();
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
   const [title, setTitle] = useState("");
@@ -134,6 +135,8 @@ function Editor() {
       }
       const data = await res.json();
       console.log(data);
+      navigate("/homeTest")
+
     } catch (err) {
       console.error("Network error:", err);
     }

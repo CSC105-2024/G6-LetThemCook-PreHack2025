@@ -7,6 +7,7 @@ import Login from './pages/login';
 import HomePage from './pages/homepage';
 import Register from './pages/register';
 import Editor from './pages/editor';
+import HomePageTest from './pages/homepagetest';
 function App() {
   return (
     <>
@@ -16,7 +17,7 @@ function App() {
           <Route path='/homePage' element={<HomePage/>}/>
           <Route path='/register' element={<Register/>}/>
           <Route path='/add-recipe' element={<Editor/>}/>
-         
+          <Route path='/homeTest' element={<HomePageTest/>}/>
         </Routes>
       </Router>
     </>

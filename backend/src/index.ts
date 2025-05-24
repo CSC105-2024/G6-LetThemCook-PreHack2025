@@ -7,6 +7,7 @@ import cookiesRouter from "./routes/cookies.ts";
 import authRouter from "./routes/auth.routes.ts";
 import { recipeRouter } from "./routes/recipe.routes.ts";
 import { serveStatic } from "@hono/node-server/serve-static";
+import { join } from "path";
 
 const app = new Hono();
 

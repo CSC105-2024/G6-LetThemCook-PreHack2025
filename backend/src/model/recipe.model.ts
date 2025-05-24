@@ -50,3 +50,15 @@ export const addRecipe = async(
        }
     })
 }
+
+export const getAllRecipes = async ()=>{
+    const allPost = await db.recipe.findMany({
+        include:{
+            user:true,
+        },
+        orderBy:{
+            createdAt:"desc"
+        }
+    })
+    return allPost;
+}

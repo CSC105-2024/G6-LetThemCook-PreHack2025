@@ -1,6 +1,6 @@
 import type { Context } from "hono";
 import { db } from "../index.ts";
-import * as postModel from "../model/post.model.ts";
+import * as recipeModel from "../model/recipe.model.ts";
 import { title } from "process";
 import { uploadFile } from "../utils/uploadImage.ts";
 type recipeBody = {
@@ -19,7 +19,7 @@ export const getRecipe = async (c: Context) => {
     if (!userId) {
       return c.json({ success: false, msg: "Unauthorized" }, 401);
     }
-    const recipe = await postModel.getRecipe(userId);
+    const recipe = await recipeModel.getRecipe(userId);
 
     return c.json({
       success: true,
@@ -69,7 +69,7 @@ export const createRecipe = async (c: Context) => {
 
     const imagePath = image ? await uploadFile(image) : null;
 
-    const recipe = await postModel.addRecipe(
+    const recipe = await recipeModel.addRecipe(
       userId,
       title,
       description,
@@ -96,3 +96,20 @@ export const createRecipe = async (c: Context) => {
     );
   }
 };
+
+export const getAllRecipe = async (c:Context)=>{
+  try{
+    const recipes = await recipeModel.getAllRecipes();
+    return c.json({
+      success:true,
+      data:recipes,
+      msg:"Sucessfully fetch all recipes"
+    })
+  }catch(e){
+    return c.json({
+      success:false,
+      data:null,
+      msg:`Internal server Error ${e}`
+    },500)
+  }
+}
