@@ -7,8 +7,8 @@ function RecipeDisplay({ recipe }) {
   return (
     <>
 
-    <div className="min-h-screen bg-[#E9E5DC] p-6 flex flex-col items-center">
-      <div className="bg-white w-full max-w-5xl rounded-lg shadow-md p-6 md:p-12">
+    <div className="min-h-screen bg-[#E9E5DC] p-6 md:flex flex-col justify-center items-center">
+      <div className="bg-white w-full max-w-5xl rounded-lg shadow-md p-6 md:p-18 ">
 
         <div className="flex flex-col md:flex-row gap-6">
           <img src={recipe.imageUrl} alt="Recipe" className="w-full md:w-64 rounded-md" />
@@ -24,7 +24,7 @@ function RecipeDisplay({ recipe }) {
         <div className="mt-10 grid grid-cols-1 md:grid-cols-2">
           <div>
             <h2 className="text-xl font-semibold mb-2 ">Ingredients</h2>
-            <ul className="ml-5 text-sm space-y-1 list-disc list-inside">
+            <ul className="ml-5 text-sm lg:text-base space-y-1 list-disc list-inside">
               {recipe.ingredients.map((item, i) => (
                 <li key={i}>{item}</li>
               ))}
@@ -33,8 +33,8 @@ function RecipeDisplay({ recipe }) {
           </div>
               
           <div>
-            <h2 className="text-xl font-semibold mb-2">Directions</h2>
-            <ol className="list-decimal list-inside text-sm space-y-2">
+            <h2 className="text-xl font-semibold mb-2 mt-10 md:mt-0 " >Directions</h2>
+            <ol className="list-decimal list-inside text-sm lg:text-base  space-y-3">
               {recipe.steps.map((step, i) => (
                 <li key={i}>{step}</li>
               ))}
