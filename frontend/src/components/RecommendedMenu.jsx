@@ -69,7 +69,7 @@ function RecommendedMenu() {
               <img
                 src={`http://localhost:3000${menu.image}`} 
                 alt={menu.title}
-                className="w-full h-auto aspect-[4/3] object-cover rounded-lg shadow-md"
+                className="w-100 h-auto aspect-[4/3] object-cover rounded-lg shadow-md"
               />
               <p className="mt-3 font-semibold text-center text-lg">{menu.name}</p>
             </div>

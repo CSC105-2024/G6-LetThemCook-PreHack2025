@@ -29,6 +29,19 @@ function HomePageTest(){
         fetchRecipe();
         fetchMyRecipe();
     },[])
+    const handleDelete = async (id)=>{
+        try{
+            const res = await fetch(`http://localhost:3000/recipe/${id}`,{
+                method:"DELETE",
+                credentials:"include"
+            })
+            if(res.ok){
+                setMyRecipe(myrecipe.filter((c)=>c.id !== id));
+            }
+        }catch(error){
+           console.error("Error deleting post:", error); 
+        }
+    }
     return(
         <>
         HOmeTst
@@ -48,8 +61,9 @@ function HomePageTest(){
         <hr/>
         {myrecipe.map((myre, index)=>{
             return(
-                <div key={index}>
+                <div key={index} className="flex gap-2 p-10 border-1 m-4">
                     <p>{myre.title}</p>
+                    <button onClick={()=>handleDelete(myre.id)} className="bg-gray-400 p-2">Delete</button>
                 </div>
             )
         })}

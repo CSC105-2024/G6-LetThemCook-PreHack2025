@@ -52,9 +52,16 @@ export const addRecipe = async(
 }
 
 export const deleteRecipe = async (id:string)=>{
+    await db.ingredients.deleteMany({
+        where:{recipeId:id},
+    })
+    await db.steps.deleteMany({
+        where:{recipeId:id}
+    })
     const deletedRecipe = await db.recipe.delete({
         where:{id}
     })
+    
     return deletedRecipe;
 }
 
