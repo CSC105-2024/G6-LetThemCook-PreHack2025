@@ -1,54 +1,54 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider          = "sqlite"
+  url               = env("DATABASE_URL")
+  //shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model User{
-  id  Int @id @default(autoincrement())
-  email String @unique
-  username String @unique
+model User {
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
+  username String   @unique
   password String
-  bio String?
-  pfpURL String?
-  recipe Recipe[]
+  bio      String?
+  pfpURL   String?
+  recipe   Recipe[]
 }
+
 model Recipe {
-  id String @id @default(cuid())
-  userId Int
-  title String
+  id          String        @id @default(cuid())
+  userId      Int
+  title       String
   description String?
-  image String?
-  createdAt DateTime @default(now())
-  ingredients Ingredients[]
-  category String
+  image       String?       
+  createdAt   DateTime      @default(now())
+  category    String
   nationality String
-  steps Steps[]
-  user User @relation(fields: [userId], references: [id])
+  ingredients Ingredients[]
+  user        User          @relation(fields: [userId], references: [id])
+  steps       Steps[]
+
+  @@index([userId], map: "Recipe_userId_fkey")
 }
 
-model Ingredients{
-  id Int @id @default(autoincrement())
-  name String
+model Ingredients {
+  id       Int    @id @default(autoincrement())
+  name     String
   recipeId String
-  recipe Recipe @relation(fields: [recipeId], references: [id])
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+
+  @@index([recipeId], map: "Ingredients_recipeId_fkey")
 }
-model Steps{
-  id Int @id @default(autoincrement())
+
+model Steps {
+  id               Int    @id @default(autoincrement())
   Step_description String
-  recipeId String
-  recipe Recipe @relation(fields: [recipeId], references: [id])
+  recipeId         String
+  recipe           Recipe @relation(fields: [recipeId], references: [id])
 
+  @@index([recipeId], map: "Steps_recipeId_fkey")
 }
-
-

@@ -2550,8 +2550,8 @@ export namespace Prisma {
     category?: boolean
     nationality?: boolean
     ingredients?: boolean | Recipe$ingredientsArgs<ExtArgs>
-    steps?: boolean | Recipe$stepsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    steps?: boolean | Recipe$stepsArgs<ExtArgs>
     _count?: boolean | RecipeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["recipe"]>
 
@@ -2593,8 +2593,8 @@ export namespace Prisma {
   export type RecipeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "description" | "image" | "createdAt" | "category" | "nationality", ExtArgs["result"]["recipe"]>
   export type RecipeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ingredients?: boolean | Recipe$ingredientsArgs<ExtArgs>
-    steps?: boolean | Recipe$stepsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    steps?: boolean | Recipe$stepsArgs<ExtArgs>
     _count?: boolean | RecipeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type RecipeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2608,8 +2608,8 @@ export namespace Prisma {
     name: "Recipe"
     objects: {
       ingredients: Prisma.$IngredientsPayload<ExtArgs>[]
-      steps: Prisma.$StepsPayload<ExtArgs>[]
       user: Prisma.$UserPayload<ExtArgs>
+      steps: Prisma.$StepsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3015,8 +3015,8 @@ export namespace Prisma {
   export interface Prisma__RecipeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     ingredients<T extends Recipe$ingredientsArgs<ExtArgs> = {}>(args?: Subset<T, Recipe$ingredientsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IngredientsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    steps<T extends Recipe$stepsArgs<ExtArgs> = {}>(args?: Subset<T, Recipe$stepsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StepsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    steps<T extends Recipe$stepsArgs<ExtArgs> = {}>(args?: Subset<T, Recipe$stepsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StepsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5824,8 +5824,8 @@ export namespace Prisma {
     category?: StringFilter<"Recipe"> | string
     nationality?: StringFilter<"Recipe"> | string
     ingredients?: IngredientsListRelationFilter
-    steps?: StepsListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    steps?: StepsListRelationFilter
   }
 
   export type RecipeOrderByWithRelationInput = {
@@ -5838,8 +5838,8 @@ export namespace Prisma {
     category?: SortOrder
     nationality?: SortOrder
     ingredients?: IngredientsOrderByRelationAggregateInput
-    steps?: StepsOrderByRelationAggregateInput
     user?: UserOrderByWithRelationInput
+    steps?: StepsOrderByRelationAggregateInput
   }
 
   export type RecipeWhereUniqueInput = Prisma.AtLeast<{
@@ -5855,8 +5855,8 @@ export namespace Prisma {
     category?: StringFilter<"Recipe"> | string
     nationality?: StringFilter<"Recipe"> | string
     ingredients?: IngredientsListRelationFilter
-    steps?: StepsListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    steps?: StepsListRelationFilter
   }, "id">
 
   export type RecipeOrderByWithAggregationInput = {
@@ -6056,8 +6056,8 @@ export namespace Prisma {
     category: string
     nationality: string
     ingredients?: IngredientsCreateNestedManyWithoutRecipeInput
-    steps?: StepsCreateNestedManyWithoutRecipeInput
     user: UserCreateNestedOneWithoutRecipeInput
+    steps?: StepsCreateNestedManyWithoutRecipeInput
   }
 
   export type RecipeUncheckedCreateInput = {
@@ -6082,8 +6082,8 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     nationality?: StringFieldUpdateOperationsInput | string
     ingredients?: IngredientsUpdateManyWithoutRecipeNestedInput
-    steps?: StepsUpdateManyWithoutRecipeNestedInput
     user?: UserUpdateOneRequiredWithoutRecipeNestedInput
+    steps?: StepsUpdateManyWithoutRecipeNestedInput
   }
 
   export type RecipeUncheckedUpdateInput = {
@@ -6363,15 +6363,15 @@ export namespace Prisma {
     none?: IngredientsWhereInput
   }
 
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
   export type StepsListRelationFilter = {
     every?: StepsWhereInput
     some?: StepsWhereInput
     none?: StepsWhereInput
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
   }
 
   export type IngredientsOrderByRelationAggregateInput = {
@@ -6559,17 +6559,17 @@ export namespace Prisma {
     connect?: IngredientsWhereUniqueInput | IngredientsWhereUniqueInput[]
   }
 
+  export type UserCreateNestedOneWithoutRecipeInput = {
+    create?: XOR<UserCreateWithoutRecipeInput, UserUncheckedCreateWithoutRecipeInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRecipeInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type StepsCreateNestedManyWithoutRecipeInput = {
     create?: XOR<StepsCreateWithoutRecipeInput, StepsUncheckedCreateWithoutRecipeInput> | StepsCreateWithoutRecipeInput[] | StepsUncheckedCreateWithoutRecipeInput[]
     connectOrCreate?: StepsCreateOrConnectWithoutRecipeInput | StepsCreateOrConnectWithoutRecipeInput[]
     createMany?: StepsCreateManyRecipeInputEnvelope
     connect?: StepsWhereUniqueInput | StepsWhereUniqueInput[]
-  }
-
-  export type UserCreateNestedOneWithoutRecipeInput = {
-    create?: XOR<UserCreateWithoutRecipeInput, UserUncheckedCreateWithoutRecipeInput>
-    connectOrCreate?: UserCreateOrConnectWithoutRecipeInput
-    connect?: UserWhereUniqueInput
   }
 
   export type IngredientsUncheckedCreateNestedManyWithoutRecipeInput = {
@@ -6604,6 +6604,14 @@ export namespace Prisma {
     deleteMany?: IngredientsScalarWhereInput | IngredientsScalarWhereInput[]
   }
 
+  export type UserUpdateOneRequiredWithoutRecipeNestedInput = {
+    create?: XOR<UserCreateWithoutRecipeInput, UserUncheckedCreateWithoutRecipeInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRecipeInput
+    upsert?: UserUpsertWithoutRecipeInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRecipeInput, UserUpdateWithoutRecipeInput>, UserUncheckedUpdateWithoutRecipeInput>
+  }
+
   export type StepsUpdateManyWithoutRecipeNestedInput = {
     create?: XOR<StepsCreateWithoutRecipeInput, StepsUncheckedCreateWithoutRecipeInput> | StepsCreateWithoutRecipeInput[] | StepsUncheckedCreateWithoutRecipeInput[]
     connectOrCreate?: StepsCreateOrConnectWithoutRecipeInput | StepsCreateOrConnectWithoutRecipeInput[]
@@ -6616,14 +6624,6 @@ export namespace Prisma {
     update?: StepsUpdateWithWhereUniqueWithoutRecipeInput | StepsUpdateWithWhereUniqueWithoutRecipeInput[]
     updateMany?: StepsUpdateManyWithWhereWithoutRecipeInput | StepsUpdateManyWithWhereWithoutRecipeInput[]
     deleteMany?: StepsScalarWhereInput | StepsScalarWhereInput[]
-  }
-
-  export type UserUpdateOneRequiredWithoutRecipeNestedInput = {
-    create?: XOR<UserCreateWithoutRecipeInput, UserUncheckedCreateWithoutRecipeInput>
-    connectOrCreate?: UserCreateOrConnectWithoutRecipeInput
-    upsert?: UserUpsertWithoutRecipeInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRecipeInput, UserUpdateWithoutRecipeInput>, UserUncheckedUpdateWithoutRecipeInput>
   }
 
   export type IngredientsUncheckedUpdateManyWithoutRecipeNestedInput = {
@@ -6899,24 +6899,6 @@ export namespace Prisma {
     data: IngredientsCreateManyRecipeInput | IngredientsCreateManyRecipeInput[]
   }
 
-  export type StepsCreateWithoutRecipeInput = {
-    Step_description: string
-  }
-
-  export type StepsUncheckedCreateWithoutRecipeInput = {
-    id?: number
-    Step_description: string
-  }
-
-  export type StepsCreateOrConnectWithoutRecipeInput = {
-    where: StepsWhereUniqueInput
-    create: XOR<StepsCreateWithoutRecipeInput, StepsUncheckedCreateWithoutRecipeInput>
-  }
-
-  export type StepsCreateManyRecipeInputEnvelope = {
-    data: StepsCreateManyRecipeInput | StepsCreateManyRecipeInput[]
-  }
-
   export type UserCreateWithoutRecipeInput = {
     email: string
     username: string
@@ -6937,6 +6919,24 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutRecipeInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutRecipeInput, UserUncheckedCreateWithoutRecipeInput>
+  }
+
+  export type StepsCreateWithoutRecipeInput = {
+    Step_description: string
+  }
+
+  export type StepsUncheckedCreateWithoutRecipeInput = {
+    id?: number
+    Step_description: string
+  }
+
+  export type StepsCreateOrConnectWithoutRecipeInput = {
+    where: StepsWhereUniqueInput
+    create: XOR<StepsCreateWithoutRecipeInput, StepsUncheckedCreateWithoutRecipeInput>
+  }
+
+  export type StepsCreateManyRecipeInputEnvelope = {
+    data: StepsCreateManyRecipeInput | StepsCreateManyRecipeInput[]
   }
 
   export type IngredientsUpsertWithWhereUniqueWithoutRecipeInput = {
@@ -6962,31 +6962,6 @@ export namespace Prisma {
     id?: IntFilter<"Ingredients"> | number
     name?: StringFilter<"Ingredients"> | string
     recipeId?: StringFilter<"Ingredients"> | string
-  }
-
-  export type StepsUpsertWithWhereUniqueWithoutRecipeInput = {
-    where: StepsWhereUniqueInput
-    update: XOR<StepsUpdateWithoutRecipeInput, StepsUncheckedUpdateWithoutRecipeInput>
-    create: XOR<StepsCreateWithoutRecipeInput, StepsUncheckedCreateWithoutRecipeInput>
-  }
-
-  export type StepsUpdateWithWhereUniqueWithoutRecipeInput = {
-    where: StepsWhereUniqueInput
-    data: XOR<StepsUpdateWithoutRecipeInput, StepsUncheckedUpdateWithoutRecipeInput>
-  }
-
-  export type StepsUpdateManyWithWhereWithoutRecipeInput = {
-    where: StepsScalarWhereInput
-    data: XOR<StepsUpdateManyMutationInput, StepsUncheckedUpdateManyWithoutRecipeInput>
-  }
-
-  export type StepsScalarWhereInput = {
-    AND?: StepsScalarWhereInput | StepsScalarWhereInput[]
-    OR?: StepsScalarWhereInput[]
-    NOT?: StepsScalarWhereInput | StepsScalarWhereInput[]
-    id?: IntFilter<"Steps"> | number
-    Step_description?: StringFilter<"Steps"> | string
-    recipeId?: StringFilter<"Steps"> | string
   }
 
   export type UserUpsertWithoutRecipeInput = {
@@ -7017,6 +6992,31 @@ export namespace Prisma {
     pfpURL?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type StepsUpsertWithWhereUniqueWithoutRecipeInput = {
+    where: StepsWhereUniqueInput
+    update: XOR<StepsUpdateWithoutRecipeInput, StepsUncheckedUpdateWithoutRecipeInput>
+    create: XOR<StepsCreateWithoutRecipeInput, StepsUncheckedCreateWithoutRecipeInput>
+  }
+
+  export type StepsUpdateWithWhereUniqueWithoutRecipeInput = {
+    where: StepsWhereUniqueInput
+    data: XOR<StepsUpdateWithoutRecipeInput, StepsUncheckedUpdateWithoutRecipeInput>
+  }
+
+  export type StepsUpdateManyWithWhereWithoutRecipeInput = {
+    where: StepsScalarWhereInput
+    data: XOR<StepsUpdateManyMutationInput, StepsUncheckedUpdateManyWithoutRecipeInput>
+  }
+
+  export type StepsScalarWhereInput = {
+    AND?: StepsScalarWhereInput | StepsScalarWhereInput[]
+    OR?: StepsScalarWhereInput[]
+    NOT?: StepsScalarWhereInput | StepsScalarWhereInput[]
+    id?: IntFilter<"Steps"> | number
+    Step_description?: StringFilter<"Steps"> | string
+    recipeId?: StringFilter<"Steps"> | string
+  }
+
   export type RecipeCreateWithoutIngredientsInput = {
     id?: string
     title: string
@@ -7025,8 +7025,8 @@ export namespace Prisma {
     createdAt?: Date | string
     category: string
     nationality: string
-    steps?: StepsCreateNestedManyWithoutRecipeInput
     user: UserCreateNestedOneWithoutRecipeInput
+    steps?: StepsCreateNestedManyWithoutRecipeInput
   }
 
   export type RecipeUncheckedCreateWithoutIngredientsInput = {
@@ -7065,8 +7065,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: StringFieldUpdateOperationsInput | string
     nationality?: StringFieldUpdateOperationsInput | string
-    steps?: StepsUpdateManyWithoutRecipeNestedInput
     user?: UserUpdateOneRequiredWithoutRecipeNestedInput
+    steps?: StepsUpdateManyWithoutRecipeNestedInput
   }
 
   export type RecipeUncheckedUpdateWithoutIngredientsInput = {

@@ -1,32 +1,33 @@
 import type { Context } from "hono";
 import { db } from "../index.ts";
-import * as postModel from "../modles/post.model.ts"
+import * as recipeModel from "../model/recipe.model.ts";
 import { title } from "process";
+import { uploadFile } from "../utils/uploadImage.ts";
 type recipeBody = {
-  userId:number,
-  title:string,
-  description:string
-  image:string
-  category:string,
-  nationality: string,
-  ingredients:string[]
-  steps:string[]
-}
-export const getRecipe = async(c:Context)=>{
-    try{
-        const userId = c.get('userId');
-        if(!userId){
-            return c.json({ success: false, msg: 'Unauthorized' }, 401);
-        }
-        const recipe = await postModel.getRecipe(userId);
-        return c.json({
-            success:true,
-            data:recipe,
-            msg:'Successfully fetched user posts'
-        })
+  userId: number;
+  title: string;
+  description: string;
+  image: string;
+  category: string;
+  nationality: string;
+  ingredients: string[];
+  steps: string[];
+};
+export const getRecipe = async (c: Context) => {
+  try {
+    const userId = c.get("userId");
+    if (!userId) {
+      return c.json({ success: false, msg: "Unauthorized" }, 401);
+    }
+    const recipe = await recipeModel.getRecipe(userId);
 
-    }catch (e){
-        return c.json(
+    return c.json({
+      success: true,
+      data: recipe,
+      msg: "Successfully fetched user posts",
+    });
+  } catch (e) {
+    return c.json(
       {
         success: false,
         data: null,
@@ -34,9 +35,8 @@ export const getRecipe = async(c:Context)=>{
       },
       500
     );
-    }
-    
-}
+  }
+};
 
 export const createRecipe = async (c: Context) => {
   try {
@@ -67,16 +67,13 @@ export const createRecipe = async (c: Context) => {
       }
     }
 
-    const imageBuffer = image ? await image.arrayBuffer() : null;
-    const imageBase64 = imageBuffer
-      ? Buffer.from(imageBuffer).toString("base64")
-      : null;
+    const imagePath = image ? await uploadFile(image) : null;
 
-    const recipe = await postModel.addRecipe(
+    const recipe = await recipeModel.addRecipe(
       userId,
       title,
       description,
-      imageBase64,
+      imagePath,
       ingredients,
       category,
       nationality,
@@ -100,3 +97,19 @@ export const createRecipe = async (c: Context) => {
   }
 };
 
+export const getAllRecipe = async (c:Context)=>{
+  try{
+    const recipes = await recipeModel.getAllRecipes();
+    return c.json({
+      success:true,
+      data:recipes,
+      msg:"Sucessfully fetch all recipes"
+    })
+  }catch(e){
+    return c.json({
+      success:false,
+      data:null,
+      msg:`Internal server Error ${e}`
+    },500)
+  }
+}
