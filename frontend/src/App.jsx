@@ -8,6 +8,9 @@ import HomePage from './pages/homepage';
 import UserProfile from './pages/userProfile';
 import OtherProfilePage from './pages/otherProfile';
 import RecipeDisplay from './pages/RecipeDisplay';
+import Register from './pages/register';
+import fakeRecipe from './components/fakeRecipe'
+import Editor from './pages/editor'
 
 
 function App() {
@@ -19,7 +22,9 @@ function App() {
           <Route path='/homePage' element={<HomePage/>}/>
           <Route path='/myProfile' element={<UserProfile/>}/>
           <Route path='/userProfile'element={<OtherProfilePage/>}/> 
-          <Route path='/recipe' element={<RecipeDisplay/>}/>
+          <Route path='/recipe' element={<RecipeDisplay recipe={fakeRecipe} />} />
+          <Route path='/register' element={<Register/>}/>
+          <Route path='/add-recipe' element={<Editor/>}/>
         </Routes>
       </Router>
     </>
