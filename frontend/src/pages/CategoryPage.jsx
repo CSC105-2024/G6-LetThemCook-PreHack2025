@@ -18,23 +18,9 @@ const slugToName = {
   boiled: "Food Categories / Boiled",
   soup: "Food Categories / Soup",
 };
-
-const getUserFoodData = (type) => {
-  const data = JSON.parse(localStorage.getItem("userFoods")) || {};
-  return data[type] || [];
-};
-
 function CategoryPage() {
   const [allFood, setAllFood] = useState([]);
   const defaultFoodData = {
-    /*
-  "thai-food": 
-  [
-    { name: "Phat kaphrao", img: "/Homepage/ThaiF.svg" },
-    { name: "Tom Yum Goong", img: "/Homepage/tom.png" },
-    { name: "Mango and sticky rice", img: "/Homepage/Dessert.svg" },
-  ],
-  */
     "thai-food": allFood.filter((food) => food.nationality == "Thai"),
     "italian-food": allFood.filter((food) => food.nationality == "Italian"),
     "japanese-food": allFood.filter((food) => food.nationality == "Japanese"),
@@ -46,9 +32,8 @@ function CategoryPage() {
   };
 
   const { type } = useParams();
-  const userFoods = getUserFoodData(type);
   const defaultFoods = defaultFoodData[type] || [];
-  const combinedFoods = [...defaultFoods, ...userFoods];
+  const combinedFoods = [...defaultFoods];
   const title = slugToName[type] || "Unknown Category";
 
   const [page, setPage] = useState(0);

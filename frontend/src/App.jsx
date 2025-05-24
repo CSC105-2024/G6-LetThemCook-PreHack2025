@@ -10,11 +10,12 @@ import Editor from './pages/editor';
 import HomePageTest from './pages/homepagetest';
 import CategoryPage from "./pages/CategoryPage";
 import CountryChoosePage from './pages/countryChoose';
-
+import ScrollToTop from './services/scrollToTop';
 function App() {
   return (
     <>
       <Router>
+        <ScrollToTop/>
         <Routes>
           <Route path='/' element={<Login/>}/>
           <Route path='/homePage' element={<HomePage/>}/>
