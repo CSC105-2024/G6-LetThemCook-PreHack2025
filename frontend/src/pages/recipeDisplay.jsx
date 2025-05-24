@@ -1,4 +1,4 @@
-import NavBar from '../components/navbar';
+
 
 function RecipeDisplay({ recipe }) {
     if (!recipe) {
@@ -6,9 +6,9 @@ function RecipeDisplay({ recipe }) {
   }
   return (
     <>
-    <NavBar/>
-    <div className="min-h-screen bg-white p-6 flex flex-col items-center">
-      <div className="bg-[#E9E5DC] w-full max-w-5xl rounded-lg shadow-md p-6 md:p-10">
+
+    <div className="min-h-screen bg-[#E9E5DC] p-6 flex flex-col items-center">
+      <div className="bg-white w-full max-w-5xl rounded-lg shadow-md p-6 md:p-12">
 
         <div className="flex flex-col md:flex-row gap-6">
           <img src={recipe.imageUrl} alt="Recipe" className="w-full md:w-64 rounded-md" />
@@ -21,15 +21,17 @@ function RecipeDisplay({ recipe }) {
             </div>
           </div>
         </div>
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-2">
           <div>
-            <h2 className="text-xl font-semibold mb-2">Ingredients</h2>
-            <ul className="text-sm space-y-1">
+            <h2 className="text-xl font-semibold mb-2 ">Ingredients</h2>
+            <ul className="ml-5 text-sm space-y-1 list-disc list-inside">
               {recipe.ingredients.map((item, i) => (
                 <li key={i}>{item}</li>
               ))}
             </ul>
+            
           </div>
+              
           <div>
             <h2 className="text-xl font-semibold mb-2">Directions</h2>
             <ol className="list-decimal list-inside text-sm space-y-2">

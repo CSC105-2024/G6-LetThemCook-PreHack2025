@@ -1,10 +1,12 @@
+
+
 const fakeRecipe = {
     title: "Pancake",
     description: "Classic Fluffy Pancakes – Soft and airy, perfect for any morning.",
     imageUrl: "/Homepage/Pancake.svg",
     author: {
-        username: "InWZa005",
-        profileUrl: "/Homepage/Pancake.svg",
+        username: "LaiosChef",
+        profileUrl: "/userProfile/defaulticon.png",
     },
     ingredients: [
         "120 g cake flour", "1 tsp baking powder", "1 tsp baking soda", "4 tbsp granulated sugar",
