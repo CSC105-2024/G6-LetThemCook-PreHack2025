@@ -3,28 +3,31 @@ import recipebook from '/userProfile/recipe-book.svg';
 import React, { useState } from 'react';
 import NavBar from "../components/navbar";
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 
 function UserProfile() {
     const [username, setUsername] = useState('Guest');
     const [bio, setBio] = useState('hold up, let me cook.');
     const [tmpUsername, setTmpUsername] = useState(username);
     const [tmpBio, setTmpBio] = useState(bio);
-    const handleSave = () => {
-        setUsername(tmpUsername);
-        setBio(tmpBio);
-        setIsOpen(false);
-    };
-
     const [isOpen, setIsOpen] = useState(false);
     const [profileURL, setProfileURL] = useState(defaulticon);
+    const [tmpProfileURL, setTmpProfileURL] = useState(defaulticon);
     const toggleDropdown = () => setIsOpen(!isOpen);
     const handleProfileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
             const imageURL = URL.createObjectURL(file);
-            setProfileURL(imageURL);
+            setTmpProfileURL(imageURL);
         }
     }
+    const handleSave = () => {
+        setUsername(tmpUsername);
+        setBio(tmpBio);
+        setProfileURL(tmpProfileURL);
+        setIsOpen(false);
+    };
 
     const navigate = useNavigate();
     const handleStartNowClick = () =>{
@@ -35,27 +38,31 @@ function UserProfile() {
         <div className="min-h-screen bg-[#E9E5DC] flex items-center justify-center px-4">
             <div className="w-full max-w-sm md:max-w-xl lg:max-w-2xl bg-white p-5 sm:p-8 rounded-lg shadow-md">
                 <div className="md:max-w-sm lg:max-w-md xl:max-w-lg mx-auto items-center ">
-                    <h1 className="text-black font-semibold text-lg  mb-9">My Profile</h1>
+                    <h1 className="text-black font-bold text-lg mb-4">My Profile</h1>
                     <div className="flex items-center">
                         <div className="w-24 h-24 rounded-full overflow-hidden flex items-center flex-shrink-0 justify-center">
                             <img src={profileURL} className="w-full h-full object-cover" />
                         </div>
 
-                        <p className="ml-4 md:ml-6 w-full border mt-2 px-4 py-2 rounded-[10px]  ">{username} </p>
+                                                <div className="ml-3 w-full px-2 py-2 ">
+                        <p className="text-2xl font-semibold">{username} </p>
+                        <p className="text-sm  mt-2 text-gray-700"> { bio } </p>
+                        </div>
+               
                     </div>
+
                     <div>
-                        <p className="mt-3 md:mt-4 w-full border px-4 py-2 rounded-[10px]"> {bio} </p>
-                    </div>
-                    <div>
+                        
                         <button onClick={toggleDropdown}
-                            className="bg-[#AE7E67] text-white text-left hover:bg-[#976a55] mt-4 w-full border px-4 py-2 rounded-[10px]">
-                            Edit Profile </button>
+                            className="bg-[#AE7E67] text-white hover:bg-[#976a55] mt-4 w-full border px-4 py-2 rounded-[10px] flex items-center justify-between">
+                            Edit Profile 
+                         <FontAwesomeIcon icon={isOpen ? faSortUp : faSortDown} className="float-right" />   </button>
                         <div >
                             {isOpen && (
                                 <><div className="ml-2 mr-2 flex flex-col justify-center border rounded-[8px]">
                                     <div className="flex justify-center mt-3">
-                                        <label htmlFor="profile-upload" className="cursor-pointer">
-                                            <img src={profileURL} className="md:w-20 md:h-20 w-16 h-16 rounded-full object-cover" />
+                                        <label htmlFor="profile-upload" className=" cursor-pointer opacity-100 transition duration-300 ease-in-out hover:opacity-50">
+                                            <img src={tmpProfileURL} className="md:w-20 md:h-20 w-16 h-16 rounded-full object-cover" />
                                         </label>
                                         <input
                                             id="profile-upload"
@@ -90,7 +97,7 @@ function UserProfile() {
                         <div className="mt-3">
                             <div className="flex items-center">
                                 <img src={recipebook} className="w-8 h-8 ml-1" />
-                                <h1 className="w-full px-1 py-2 rounded-[10px]"> Recipe </h1>
+                                <h1 className="w-full ml-1 px-1 py-2 rounded-[10px]"> Recipe </h1>
                             </div>
                             <div className="mt-22 mb-22">
                                 <div className="text-gray-500 m-5 text-center ">No recipe shared yet.</div>

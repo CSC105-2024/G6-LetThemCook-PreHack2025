@@ -9,30 +9,29 @@ function OtherProfilePage() {
     const [bio, setBio] = useState('hold up, let me cook.');
 
     return (
-        <div className="min-h-screen bg-[#E9E5DC] flex items-center justify-center px-4 ">
-            <div className="w-full max-w-sm md:max-w-xl lg:max-w-2xl bg-white p-5 sm:p-8 rounded-lg shadow-md">
-                <div className="md:max-w-sm lg:max-w-md xl:max-w-lg mx-auto items-center ">
-                    <h1 className="text-black font-semibold text-lg  mb-9">{username}'s Profile</h1>
-                    <div className="flex items-center">
-                        <div className="w-24 h-24 rounded-full overflow-hidden flex items-center flex-shrink-0 justify-center">
-                            <img src={defaulticon} className="w-full h-full object-cover" />
-                        </div>
+        <>
+        <NavBar/>
+        <div className="min-h-screen bg-[#E9E5DC] flex items-center justify-center px-4">
+                   <div className="w-full max-w-sm md:max-w-xl lg:max-w-2xl bg-white p-5 sm:p-8 rounded-lg shadow-md">
+                       <div className="md:max-w-sm lg:max-w-md xl:max-w-lg mx-auto items-center ">
+                           <div className="flex items-center">
+                               <div className="w-24 h-24 rounded-full overflow-hidden flex items-center flex-shrink-0 justify-center">
+                                   <img src={defaulticon} className="w-full h-full object-cover" />
+                               </div>
+       
+                                                       <div className="ml-3 w-full px-2 py-2 ">
+                               <p className="text-2xl font-semibold">{username} </p>
+                               <p className="text-sm  mt-2 text-gray-700"> { bio } </p>
+                               </div>
 
-                        <p className="ml-4 md:ml-6 w-full border mt-2 px-4 py-2 rounded-[10px]  ">{username} </p>
-                    </div>
-                    <div>
-                        <p className="mt-3 md:mt-4 w-full border px-4 py-2 rounded-[10px]">{ bio }</p>
-                    </div>
-
-                    <div className="mt-22 mb-22">
-                        <div className="text-gray-500 m-5 text-center ">No recipe shared yet.</div>
-                        <div className="flex justify-center">
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+                           </div>
+                              <div className="mt-22 mb-22">
+                                       <div className="text-gray-500 m-5 text-center ">No recipe shared yet.</div>
+</div>
+                       </div>
+                   </div>
+               </div>
+                </>
     );
 }
 
