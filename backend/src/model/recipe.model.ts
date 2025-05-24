@@ -51,6 +51,19 @@ export const addRecipe = async(
     })
 }
 
+export const deleteRecipe = async (id:string)=>{
+    const deletedRecipe = await db.recipe.delete({
+        where:{id}
+    })
+    return deletedRecipe;
+}
+
+export const getRecipeById = async (id:string)=>{
+    const getRecipeById = await db.recipe.findUnique({
+        where:{id}
+    }) 
+    return getRecipeById;
+}
 export const getAllRecipes = async ()=>{
     const allPost = await db.recipe.findMany({
         include:{
@@ -62,3 +75,5 @@ export const getAllRecipes = async ()=>{
     })
     return allPost;
 }
+
+

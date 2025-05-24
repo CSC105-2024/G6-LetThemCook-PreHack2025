@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 function HomePageTest(){
     const [recipe,setRecipe] = useState([]);
+    const [myrecipe,setMyRecipe] = useState([]);
     const fetchRecipe = async () =>{
         const res = await fetch("http://localhost:3000/recipe/all",{
             method:"GET",
@@ -13,8 +14,20 @@ function HomePageTest(){
             setRecipe(data.data);
         }
     }
+    const fetchMyRecipe = async () =>{
+        const res = await fetch("http://localhost:3000/recipe",{
+            method:"GET",
+            credentials:"include"
+        })
+         if(res.ok){
+            const json = await res.json();
+            console.log(json.data)
+            setMyRecipe(json.data);
+        }
+    }
     useEffect(()=>{
         fetchRecipe();
+        fetchMyRecipe();
     },[])
     return(
         <>
@@ -28,6 +41,15 @@ function HomePageTest(){
                     <img className="w-30" src={`http://localhost:3000${recipe.image}`} />
                     <p>Nationality:{recipe.nationality}</p>
                     <p>category:{recipe.category}</p>
+                </div>
+            )
+        })}
+        <br/>
+        <hr/>
+        {myrecipe.map((myre, index)=>{
+            return(
+                <div key={index}>
+                    <p>{myre.title}</p>
                 </div>
             )
         })}

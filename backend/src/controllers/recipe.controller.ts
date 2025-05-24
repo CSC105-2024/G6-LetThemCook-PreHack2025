@@ -113,3 +113,47 @@ export const getAllRecipe = async (c:Context)=>{
     },500)
   }
 }
+
+export const deleteRecipe = async (c:Context)=>{
+  try{
+    const recipeId = String(c.req.param("id"));
+    const deleteRecipe = await recipeModel.deleteRecipe(recipeId);
+    return c.json({
+      sucess:true,
+      data:deleteRecipe,
+      msg:"Post deleted successfully"
+    })
+  }catch(e){
+    return c.json({
+      success:false,
+      data:null,
+      msg:`Internal Server Error ${e}`
+    },500)
+  }
+}
+
+export const getTargetRecipe = async (c:Context) =>{
+  try{
+    const recipeId = String(c.req.param("id"));
+    const recipe = await recipeModel.getRecipeById(recipeId);
+    if (!recipe) {
+      return c.json({
+        success: false,
+        data: null,
+        msg: "Recipe not found",
+      }, 404);
+    }
+    return c.json({
+      success: true,
+      data: recipe,
+      msg: "Recipe fetched successfully",
+  })
+  }catch (e) {
+    return c.json({
+      success: false,
+      data: null,
+      msg: `Internal Server Error: ${e instanceof Error ? e.message : e}`,
+    }, 500);
+  }
+  
+}
