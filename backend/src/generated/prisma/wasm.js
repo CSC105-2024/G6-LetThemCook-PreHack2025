@@ -114,9 +114,6 @@ Prisma.NullTypes = {
  */
 
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
-  ReadUncommitted: 'ReadUncommitted',
-  ReadCommitted: 'ReadCommitted',
-  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -160,33 +157,6 @@ exports.Prisma.SortOrder = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
-};
-
-exports.Prisma.UserOrderByRelevanceFieldEnum = {
-  email: 'email',
-  username: 'username',
-  password: 'password',
-  bio: 'bio',
-  pfpURL: 'pfpURL'
-};
-
-exports.Prisma.RecipeOrderByRelevanceFieldEnum = {
-  id: 'id',
-  title: 'title',
-  description: 'description',
-  image: 'image',
-  category: 'category',
-  nationality: 'nationality'
-};
-
-exports.Prisma.IngredientsOrderByRelevanceFieldEnum = {
-  name: 'name',
-  recipeId: 'recipeId'
-};
-
-exports.Prisma.StepsOrderByRelevanceFieldEnum = {
-  Step_description: 'Step_description',
-  recipeId: 'recipeId'
 };
 
 

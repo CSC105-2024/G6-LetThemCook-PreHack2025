@@ -1,34 +1,33 @@
 import type { Context } from "hono";
 import { db } from "../index.ts";
-import * as postModel from "../modles/post.model.ts"
+import * as postModel from "../model/post.model.ts";
 import { title } from "process";
 import { uploadFile } from "../utils/uploadImage.ts";
 type recipeBody = {
-  userId:number,
-  title:string,
-  description:string
-  image:string
-  category:string,
-  nationality: string,
-  ingredients:string[]
-  steps:string[]
-}
-export const getRecipe = async(c:Context)=>{
-    try{
-        const userId = c.get('userId');
-        if(!userId){
-            return c.json({ success: false, msg: 'Unauthorized' }, 401);
-        }
-        const recipe = await postModel.getRecipe(userId);
+  userId: number;
+  title: string;
+  description: string;
+  image: string;
+  category: string;
+  nationality: string;
+  ingredients: string[];
+  steps: string[];
+};
+export const getRecipe = async (c: Context) => {
+  try {
+    const userId = c.get("userId");
+    if (!userId) {
+      return c.json({ success: false, msg: "Unauthorized" }, 401);
+    }
+    const recipe = await postModel.getRecipe(userId);
 
-        return c.json({
-            success:true,
-            data:recipe,
-            msg:'Successfully fetched user posts'
-        })
-
-    }catch (e){
-        return c.json(
+    return c.json({
+      success: true,
+      data: recipe,
+      msg: "Successfully fetched user posts",
+    });
+  } catch (e) {
+    return c.json(
       {
         success: false,
         data: null,
@@ -36,9 +35,8 @@ export const getRecipe = async(c:Context)=>{
       },
       500
     );
-    }
-    
-}
+  }
+};
 
 export const createRecipe = async (c: Context) => {
   try {
@@ -69,8 +67,7 @@ export const createRecipe = async (c: Context) => {
       }
     }
 
-   const imagePath = image ? await uploadFile(image) : null;
-
+    const imagePath = image ? await uploadFile(image) : null;
 
     const recipe = await postModel.addRecipe(
       userId,
@@ -99,4 +96,3 @@ export const createRecipe = async (c: Context) => {
     );
   }
 };
-

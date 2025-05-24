@@ -4,9 +4,9 @@ generator client {
 }
 
 datasource db {
-  provider          = "mysql"
+  provider          = "sqlite"
   url               = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  //shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model User {
@@ -24,7 +24,7 @@ model Recipe {
   userId      Int
   title       String
   description String?
-  image       String?       @db.LongText
+  image       String?       
   createdAt   DateTime      @default(now())
   category    String
   nationality String
