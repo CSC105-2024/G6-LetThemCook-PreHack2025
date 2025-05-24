@@ -21,7 +21,7 @@ function HomePage() {
   return (
     <>
       <NavBar />
-      <div className="px-10 py-6 space-y-10">
+      <div className="flex flex-col justify-center items-center px-10 py-6 space-y-10">
         <FilterSection />
         <RecommendedMenu />
         <FoodGrid title="International food" items={internationalFoods} />

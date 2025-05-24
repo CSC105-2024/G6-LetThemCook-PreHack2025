@@ -49,7 +49,7 @@ function FilterSection({ isOnCountryChoosePage }) {
   };
 
   return (
-    <div className="mt-7 md:ml-[50px] lg:ml-[200px] xl:ml-[450px] ml-4 mr-4 max-w-xl p-6 bg-white shadow-lg rounded-lg border">
+    <div className=" max-w-xl p-6 mt-10 bg-white shadow-lg rounded-lg border">
       <div>
         <h2 className="font-semibold mb-2">Nationality</h2>
         <div className="grid grid-cols-2 gap-x-2 gap-y-2 md:grid-cols-4">

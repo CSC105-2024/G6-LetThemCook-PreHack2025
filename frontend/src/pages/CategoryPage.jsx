@@ -1,55 +1,22 @@
 import { useParams, Link } from "react-router-dom";
 import NavBar from "../components/navbar";
 import { useState, useEffect } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
+import { fetchAllRecipe } from "../services/getAllRecipeService";
 
 const slugToName = {
   "thai-food": "Thai Food",
   "italian-food": "Italian Food",
   "japanese-food": "Japanese Food",
   "korean-food": "Korean Food",
-  "dessert": "Food Categories / Dessert",
-  "fried": "Food Categories / Fried",
-  "boiled": "Food Categories / Boiled",
-  "soup": "Food Categories / Soup",
-};
-
-const defaultFoodData = {
-  "thai-food": [
-    { name: "Phat kaphrao", img: "/Homepage/ThaiF.svg" },
-    { name: "Tom Yum Goong", img: "/Homepage/tom.png" },
-    { name: "Mango and sticky rice", img: "/Homepage/Dessert.svg" },
-  ],
-  "italian-food": [
-    { name: "Lasagna", img: "/Homepage/lasagna.svg" },
-    { name: "Spaghetti", img: "/Homepage/ItalianF.svg" },
-  ],
-  "japanese-food": [
-    { name: "Tempura", img: "/Homepage/Tempura.svg" },
-    { name: "Ramen", img: "/Homepage/Ramen.svg" },
-  ],
-  "korean-food": [
-    { name: "Tteok-bokki", img: "/Homepage/KoreanF.svg" },
-    { name: "Kimchi", img: "/Homepage/Kimchi.svg" },
-  ],
-  "dessert": [
-    { name: "Macaron", img: "/Homepage/Macaron.svg" },
-    { name: "Pancake", img: "/Homepage/Pancake.svg" },
-    { name: "Mango and sticky rice", img: "/Homepage/Dessert.svg" },
-  ],
-  "fried": [
-    { name: "Fried Pork Belly", img: "/Homepage/Fried-Pork-Belly.svg" },
-    { name: "Tempura", img: "/Homepage/Tempura.svg" },
-  ],
-  "boiled": [
-    { name: "Tom Yum Goong", img: "/Homepage/tom.png" },
-    { name: "Kai Pa-low", img: "/Homepage/Kai-Pa-low.svg" },
-  ],
-  "soup": [
-    { name: "Miso Soup", img: "/Homepage/Miso-Soup.svg" },
-    { name: "Sweet Corn Soup", img: "/Homepage/Soup.svg" },
-  ],
+  dessert: "Food Categories / Dessert",
+  fried: "Food Categories / Fried",
+  boiled: "Food Categories / Boiled",
+  soup: "Food Categories / Soup",
 };
 
 const getUserFoodData = (type) => {
@@ -58,6 +25,26 @@ const getUserFoodData = (type) => {
 };
 
 function CategoryPage() {
+  const [allFood, setAllFood] = useState([]);
+  const defaultFoodData = {
+    /*
+  "thai-food": 
+  [
+    { name: "Phat kaphrao", img: "/Homepage/ThaiF.svg" },
+    { name: "Tom Yum Goong", img: "/Homepage/tom.png" },
+    { name: "Mango and sticky rice", img: "/Homepage/Dessert.svg" },
+  ],
+  */
+    "thai-food": allFood.filter((food) => food.nationality == "Thai"),
+    "italian-food": allFood.filter((food) => food.nationality == "Italian"),
+    "japanese-food": allFood.filter((food) => food.nationality == "Japanese"),
+    "korean-food": allFood.filter((food) => food.nationality == "Korean"),
+    dessert: allFood.filter((food) => food.category == "Dessert"),
+    fried: allFood.filter((food) => food.category == "Fried"),
+    boiled: allFood.filter((food) => food.category == "Boiled"),
+    soup: allFood.filter((food) => food.category == "Soup"),
+  };
+
   const { type } = useParams();
   const userFoods = getUserFoodData(type);
   const defaultFoods = defaultFoodData[type] || [];
@@ -68,6 +55,16 @@ function CategoryPage() {
   const [itemsPerPage, setItemsPerPage] = useState(4);
 
   useEffect(() => {
+    const loadAllRecipe = async () => {
+      try {
+        const allRecipe = await fetchAllRecipe();
+        setAllFood(allRecipe);
+      } catch (error) {
+        console.error("Error fetching recipes:", error);
+      }
+    };
+    loadAllRecipe();
+
     const updateItemsPerPage = () => {
       if (window.innerWidth < 768) {
         setItemsPerPage(2);
@@ -86,7 +83,6 @@ function CategoryPage() {
   const endIndex = startIndex + itemsPerPage;
   const foodsToShow = combinedFoods.slice(startIndex, endIndex);
   const totalPages = Math.ceil(combinedFoods.length / itemsPerPage);
-
   return (
     <>
       <NavBar />
@@ -117,19 +113,25 @@ function CategoryPage() {
             No recipes yet in this category.
           </p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 place-items-center">
-            {foodsToShow.map((food, index) => (
-              <div key={startIndex + index} className="flex flex-col items-center w-full max-w-[450px]">
-                <div className="w-full max-w-[450px] h-[240px] overflow-hidden rounded-xl shadow-md">
-                  <img
-                    src={food.img}
-                    alt={food.name}
-                    className="w-full h-full object-cover"
-                  />
+          <div className="grid-container mt-10 flex justify-center items-center">
+            <div className="max-w-[800px] grid grid-cols-1 sm:grid-cols-2 gap-8 place-items-center">
+              {foodsToShow.map((food, index) => (
+                <div
+                  key={startIndex + index}
+                  className="flex flex-col items-center w-full max-w-[450px]"
+                >
+                  <div className="w-full max-w-[450px] h-[240px] overflow-hidden rounded-xl shadow-md">
+                    <div className="imgbox w-100 h-full bg-cover bg-center"
+                    style={{
+                      backgroundImage:`url(http://localhost:3000${food.image})`
+                    }}
+                    >
+                    </div>
+                  </div>
+                  <p className="mt-2 font-semibold text-center">{food.title}</p>
                 </div>
-                <p className="mt-2 font-semibold text-center">{food.name}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
         <div className="flex justify-center items-center mt-10 space-x-6">
@@ -159,4 +161,3 @@ function CategoryPage() {
 }
 
 export default CategoryPage;
-

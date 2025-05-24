@@ -88,7 +88,7 @@ function CountryChoosePage() {
   return (
     <>
       <NavBar />
-      <div className="px-6 md:px-20 py-10">
+      <div className="px-6 md:px-20 py-10 flex flex-col justify-center items-center">
         <FilterSection isOnCountryChoosePage={true} />
 
         {filteredFoods.length === 0 ? (
