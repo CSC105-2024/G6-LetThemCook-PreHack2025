@@ -72,7 +72,7 @@ function NavBar() {
           </button>
           <div className="relative hidden md:block">
             <img
-              src={"/userProfile/defaulticon.png" || `http://localhost:3000${userProfilePfp}`} 
+              src={userProfilePfp? `http://localhost:3000${userProfilePfp}`:  "/userProfile/defaulticon.png" } 
               className="w-10 h-10 rounded-full border cursor-pointer"
               onClick={() => setDropdownOpen(!dropdownOpen)}
             />
