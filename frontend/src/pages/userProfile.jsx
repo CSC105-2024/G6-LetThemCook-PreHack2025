@@ -95,11 +95,11 @@ function UserProfile() {
                        
                         <button onClick={toggleDropdown}
                             className="bg-[#AE7E67] text-white hover:bg-[#976a55] mt-4 w-full border 
-                            px-4 py-2 rounded-[10px] flex items-center justify-between
+                            px-4 py-2 rounded-[10px] flex items-center justify-between 
                             lg:text-xl">
                             Edit Profile 
-                         <FontAwesomeIcon icon={isOpen ? faSortUp : faSortDown} className="float-right" />   </button>
-                        <div ></div>
+                         <FontAwesomeIcon icon={isOpen ? faSortUp : faSortDown} className="float-right mt-auto" />   </button>
+                        <div></div>
                             {isOpen && (
                                 <div className="flex justify-center mt-4">
                                 

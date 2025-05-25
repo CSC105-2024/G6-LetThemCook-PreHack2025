@@ -28,7 +28,7 @@ function RecipeDisplay() {
     <>
     <NavBar/>
     <div className="min-h-screen bg-[#E9E5DC] p-6 md:flex justify-center items-center">
-      <div className="bg-white w-full max-w-5xl rounded-lg shadow-md p-6 md:p-10">
+      <div className="bg-white recipe-box w-full max-w-5xl rounded-lg shadow-md p-6 md:p-10 -mt-20">
         <div className="flex  flex-col md:flex-row gap-6 mt-10">
           <div className="img-box flex items-center justify-center">
           <img
