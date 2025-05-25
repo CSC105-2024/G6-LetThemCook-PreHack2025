@@ -11,6 +11,11 @@ import HomePageTest from './pages/homepagetest';
 import CategoryPage from "./pages/CategoryPage";
 import CountryChoosePage from './pages/countryChoose';
 import ScrollToTop from './services/scrollToTop';
+import UserProfile from './pages/userProfile';
+import OtherProfilePage from './pages/otherProfile';
+import RecipeDisplay from './pages/recipeDisplay';
+import fakeRecipe from './components/fakeRecipe'
+
 function App() {
   return (
     <>
@@ -24,6 +29,9 @@ function App() {
           <Route path='/homeTest' element={<HomePageTest/>}/>
           <Route path="/category/:type" element={<CategoryPage />} />
           <Route path="/pages/countryChoose" element={<CountryChoosePage />} />
+          <Route path='/myProfile' element={<UserProfile/>}/>
+          <Route path='/userProfile'element={<OtherProfilePage/>}/> 
+          <Route path='/recipe' element={<RecipeDisplay recipe={fakeRecipe} />} />
         </Routes>
       </Router>
     </>
