@@ -1,6 +1,9 @@
 
 import { create } from "domain";
 import { db } from "../index.ts";
+import { join } from "path";
+import { unlink } from "fs/promises";
+import { error } from "console";
 export const getRecipe = async (userId:number)=>{
     const posts = await db.recipe.findMany({
         where:{
@@ -53,6 +56,10 @@ export const addRecipe = async(
 }
 
 export const deleteRecipe = async (id:string)=>{
+    const recipe = await db.recipe.findUnique({
+        where:{id},
+        select:{image:true}
+    })
     await db.ingredients.deleteMany({
         where:{recipeId:id},
         
@@ -60,9 +67,19 @@ export const deleteRecipe = async (id:string)=>{
     await db.steps.deleteMany({
         where:{recipeId:id}
     })
+    if(recipe?.image){
+        const filePath = join(".", recipe.image);
+        try{
+            console.log("Trying to delete image at:", filePath);
+            await unlink(filePath);
+        }catch(error){
+            console.error("Failed to delete image file:", error);
+        }
+    }
     const deletedRecipe = await db.recipe.delete({
         where:{id}
     })
+
     
     return deletedRecipe;
 }

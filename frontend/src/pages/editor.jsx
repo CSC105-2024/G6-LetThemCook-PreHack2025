@@ -159,7 +159,7 @@ function Editor() {
         console.error("Failed to submit:", errText);
         return;
       }
-      navigate("/homePage");
+      navigate("/myProfile");
     } catch (err) {
       console.error("Network error:", err);
     }
