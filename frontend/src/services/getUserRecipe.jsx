@@ -6,5 +6,7 @@ export const fetchMyRecipe = async () =>{
          if(res.ok){
             const json = await res.json();
             return json.data;
+        }else{
+            throw new Error('Failed to fetch recipe');
         }
     }

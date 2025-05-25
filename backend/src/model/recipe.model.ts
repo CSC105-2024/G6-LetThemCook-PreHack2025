@@ -55,6 +55,7 @@ export const addRecipe = async(
 export const deleteRecipe = async (id:string)=>{
     await db.ingredients.deleteMany({
         where:{recipeId:id},
+        
     })
     await db.steps.deleteMany({
         where:{recipeId:id}
@@ -68,7 +69,11 @@ export const deleteRecipe = async (id:string)=>{
 
 export const getRecipeById = async (id:string)=>{
     const getRecipeById = await db.recipe.findUnique({
-        where:{id}
+        where:{id},
+        include:{
+            ingredients:true,
+            steps:true
+        }
     }) 
     return getRecipeById;
 }

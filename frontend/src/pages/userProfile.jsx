@@ -156,6 +156,7 @@ function UserProfile() {
                               className="aspect-[4/3] object-cover rounded-lg shadow-md"
                               src={`http://localhost:3000${re.image}`}
                               alt={re.title}
+                              onClick={()=>nav(`/recipe/${re.id}`)}
                             />
                             <div className="text-area flex justify-between items-center mt-2">
                               <p className="font-semibold">{re.title}</p>
