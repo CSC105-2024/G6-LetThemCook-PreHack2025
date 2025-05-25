@@ -7,9 +7,7 @@ const recipeSchema = z.object({
   nationality: z.string().min(1),
   category: z.string().min(1),
   description: z.string().optional(),
-  image: z.any().refine((val)=> val instanceof File, {
-    message:"Please upload an image"
-  }),
+  image: z.any().nullable(),
   ingredients: z
     .array(z.string().min(1, "Empty ingredient."))
     .min(1, "Please add at least one ingredient"),
@@ -260,9 +258,6 @@ function Editor() {
             </label>
           </div>
         </div>
-        {submitted && errors.image && (
-          <p className="text-red-500 text-center">{errors.image._errors[0]}</p>
-        )}
         <div className="des flex flex-col gap-2">
           <p className="font-semibold">Description</p>
           <textarea
