@@ -66,7 +66,7 @@ function HomePageTest(){
                 <div key={index} className="flex gap-2 p-10 border-1 m-4">
                     <p>{myre.title}</p>
                     <button onClick={()=>handleDelete(myre.id)} className="bg-gray-400 p-2">Delete</button>
-                    <button onClick={()=>nav("/add-recipe",{state:myre})} className="bg-gray-400 p-2">Edit</button>
+                    <button onClick={()=>nav("/add-recipe",{state:{mode:"edit", recipe:myre}})} className="bg-gray-400 p-2">Edit</button>
                 </div>
             )
         })}

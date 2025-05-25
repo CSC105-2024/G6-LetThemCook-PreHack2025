@@ -1,6 +1,7 @@
 import { z } from "zod";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate , useLocation} from "react-router-dom";
+
 const recipeSchema = z.object({
   title: z.string().min(1, "Please enter a recipe title."),
   nationality: z.string().min(1),
@@ -27,6 +28,27 @@ function Editor() {
   const [imagePreview, setImagePreview] = useState(null);
   const [ingredients, setIngredients] = useState([""]);
   const [steps, setSteps] = useState([""]);
+  const location = useLocation();
+  const editMode = location.state?.mode === "edit";
+  const editingRecipe = location.state?.recipe ?? null;
+  useEffect(()=>{
+    if(editMode && editingRecipe){
+      setTitle(editingRecipe.title || "");
+      setNationality(editingRecipe.nationality || "Thai");
+      setCategory(editingRecipe.category || "Dessert");
+      setDescription(editingRecipe.description || "");
+      setIngredients(
+        Array.isArray(editingRecipe.ingredients)?
+        editingRecipe.ingredients.map((i)=> typeof i === "string"? i : i.name ?? ""):[""]
+      );
+      setSteps(
+        Array.isArray(editingRecipe.steps)?
+        editingRecipe.steps.map((s)=>(typeof s === "string" ? s : s.Step_description
+ ?? "")):[""]
+      );
+      setImagePreview(editingRecipe.image ? `http://localhost:3000${editingRecipe.image}` : null );
+    }
+},[editMode,editingRecipe]);
 
   const handleAddIngredient = (e) => {
     e.preventDefault();
@@ -114,7 +136,7 @@ function Editor() {
     formData.append("nationality", nationality);
     formData.append("category", category);
     formData.append("description", description);
-    if (image) formData.append("image", image);
+    if (image && image instanceof File) formData.append("image", image);
     ingredients.forEach((item, i) =>
       formData.append(`ingredients[${i}]`, item)
     );
@@ -123,20 +145,21 @@ function Editor() {
     console.log("Submitting FormData:", formData);
 
     try {
-      const res = await fetch("http://localhost:3000/recipe/addRecipe", {
-        method: "POST",
-        credentials: "include",
-        body: formData,
-      });
-      if (!res.ok) {
-        const errorText = await res.text();
-        console.error("Failed to create post:", errorText);
+      const url = editMode
+      ? `http://localhost:3000/recipe/${editingRecipe.id}`
+      : "http://localhost:3000/recipe/addRecipe"
+      const method = editMode ? "PATCH":"POST";
+      const res = await fetch(url,{
+        method,
+        credentials:"include",
+        body:formData
+      })
+      if(!res.ok){
+        const errText = await res.text();
+        console.error("Failed to submit:", errText);
         return;
       }
-      const data = await res.json();
-      console.log(data);
-      navigate("/homeTest")
-
+      navigate("/homeTest");
     } catch (err) {
       console.error("Network error:", err);
     }
@@ -331,7 +354,7 @@ function Editor() {
           <button
             className="cursor-pointer rounded-[10px] px-5 py-4 font-bold text-black text-md  "
             type="button"
-            onClick={() => window.location.reload()}
+            onClick={() => navigate("/homeTest")}
           >
             CANCEL
           </button>
