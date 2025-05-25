@@ -17,6 +17,7 @@ function UserProfile() {
   const [tmpBio, setTmpBio] = useState(bio);
   const [isOpen, setIsOpen] = useState(false);
   const [profileURL, setProfileURL] = useState(defaulticon);
+  const [imgFile, setImageFile] = useState(null);
   const [tmpProfileURL, setTmpProfileURL] = useState(defaulticon);
   const [userRecipeList, setUserRecipeList] = useState([]);
   const toggleDropdown = () => setIsOpen(!isOpen);
@@ -38,10 +39,10 @@ function UserProfile() {
             if(userData){
                 setUsername(userData.username || "Guest");
                 setBio(userData.bio || "hold up, let me cook.");
-                setProfileURL(userData.profileImageURL || defaulticon); // replace with your image key
+                setProfileURL(userData.pfpURL || defaulticon); // replace with your image key
                 setTmpUsername(userData.username || "Guest");
                 setTmpBio(userData.bio || "hold up, let me cook.");
-                setTmpProfileURL(userData.profileImageURL || defaulticon);
+                setTmpProfileURL(userData.pfpURL || defaulticon);
             }
         }
     }catch (error) {
@@ -62,10 +63,29 @@ function UserProfile() {
     if (file) {
       const imageURL = URL.createObjectURL(file);
       setTmpProfileURL(imageURL);
+      setImageFile(file);
+      
     }
   };
   const handleSave = async () => {
     try{
+      let uploadedImgUrl = profileURL;
+      if(imgFile){
+        const formData = new FormData();
+        formData.append("image", imgFile);
+        const res = await fetch("http://localhost:3000/auth/upload-profile-img",{
+          method:"POST",
+          credentials:"include",
+          body:formData
+        })
+        const imgData = await res.json();
+        if(imgData.success){
+        uploadedImgUrl = imgData.url;
+        }else {
+        console.error("Image upload failed:", imgData.msg);
+      }
+      }
+      
         const res = await fetch(`http://localhost:3000/auth/updated-Profile`,{
             method:"PATCH",
             credentials:"include",
@@ -75,7 +95,7 @@ function UserProfile() {
             body:JSON.stringify({
                 username:tmpUsername,
                 bio:tmpBio,
-                pfpURL:tmpProfileURL,
+                pfpURL:uploadedImgUrl,
                 userId: getuserId
             })
         });
@@ -83,7 +103,8 @@ function UserProfile() {
         if(data.success){
             setUsername(tmpUsername);
             setBio(tmpBio);
-            setProfileURL(tmpProfileURL);
+            setProfileURL(uploadedImgUrl);
+            setTmpProfileURL(uploadedImgUrl);
             setIsOpen(false)
         }else {
         console.error("Failed to update profile", data.msg);
@@ -123,7 +144,7 @@ function UserProfile() {
             </h1>
             <div className="flex items-center">
               <div className="w-24 h-24 rounded-full overflow-hidden flex items-center flex-shrink-0 justify-center">
-                <img src={profileURL} className="w-full h-full object-cover" />
+                <img src={`http://localhost:3000${profileURL}`} className="w-full h-full object-cover" />
               </div>
               <div className="ml-3 w-full px-2 py-2 ">
                 <p className="text-2xl font-semibold">{username}</p>
@@ -155,7 +176,7 @@ function UserProfile() {
                         className=" cursor-pointer opacity-100 transition duration-300 ease-in-out hover:opacity-50"
                       >
                         <img
-                          src={tmpProfileURL}
+                          src={`http://localhost:3000${profileURL} `|| tmpProfileURL}
                           className="md:w-20 md:h-20 w-16 h-16 rounded-full object-cover"
                         />
                       </label>

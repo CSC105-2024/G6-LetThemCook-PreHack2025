@@ -132,4 +132,28 @@ export const getUserData = async (c:Context)=>{
   }
 }
 
+export const uploadProfileImage = async (c:Context)=>{
+  try{
+    const body = await c.req.parseBody();
+    const file = body["image"];
+    if(!file || !(file instanceof File)){
+      return c.json({
+         success: false, 
+         msg: "No file uploaded." 
+        }, 400);
+    }
+    const imgUrl = await authModel.handleProfileImgUpdate(file);
+    return c.json({
+      success: true,
+      url: imgUrl,
+    })
+  }catch(e){
+    return c.json({
+      success:false,
+      data:null,
+      msg:`Internal Server Error ${e}`
+    },500)
+  }
+}
+
 
