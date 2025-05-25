@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import NavBar from "../components/navbar";
 import FilterSection from "../components/FilterSection";
 import { useMemo, useEffect, useState } from "react";
@@ -21,7 +21,7 @@ function CountryChoosePage() {
   },[])
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-
+  const nav = useNavigate();
   const selectedNationalities = queryParams.get("nationalities")?.split(",").filter(Boolean) || [];
   const selectedCategories = queryParams.get("categories")?.split(",").filter(Boolean) || [];
 
@@ -78,7 +78,7 @@ function CountryChoosePage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 place-items-center mt-10">
             {foodsToShow.map((food, index) => (
-              <div key={startIndex + index} className="flex flex-col items-center w-full max-w-[450px]">
+              <div onClick={()=>nav(`/recipe/${food.id}`)} key={startIndex + index} className="flex flex-col items-center w-full max-w-[450px]">
                 <div className="w-full max-w-[450px] h-[240px] overflow-hidden rounded-xl shadow-md">
                   <div className="imgbox w-100 h-full bg-cover bg-center"
                     style={{
