@@ -1,13 +1,27 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { fetchUserData } from '../services/getUserProifleData';
 
 function NavBar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [userProfilePfp , setUserProfilePfp]= useState("");
   const navigate = useNavigate();
+  const userId = parseInt(localStorage.getItem("userId"))
+  useEffect(()=>{
+    const loadUserData = async ()=>{
+      try{
+        const userData = await fetchUserData(userId);
+        setUserProfilePfp(userData.pfpURL)
 
+      }catch(error){
+        console.error("Error fetching recipes:", error);
+      }
+    }
+    loadUserData();
+  })
   const handleProfileClick = () => {
     setDropdownOpen(false);
     setSidebarOpen(false);
@@ -58,7 +72,7 @@ function NavBar() {
           </button>
           <div className="relative hidden md:block">
             <img
-              src="/Homepage/profile.jpg"
+              src={"/userProfile/defaulticon.png" || `http://localhost:3000${userProfilePfp}`} 
               className="w-10 h-10 rounded-full border cursor-pointer"
               onClick={() => setDropdownOpen(!dropdownOpen)}
             />

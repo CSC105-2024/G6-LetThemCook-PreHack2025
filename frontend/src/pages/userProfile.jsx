@@ -29,6 +29,33 @@ function UserProfile() {
   useEffect(() => {
    const loadUserDataandRecipe = async ()=>{
     try{
+      
+            const userId = parseInt(localStorage.getItem("userId"))
+            setuserId(userId);
+            const userData = await fetchUserData(userId);
+            setUserData(userData);
+            const userRecipe = await fetchMyRecipe();
+            setUserRecipeList(userRecipe);
+            if(userData){
+                setUsername(userData.username || "Guest");
+                setBio(userData.bio || "hold up, let me cook.");
+                setProfileURL(userData.pfpURL || defaulticon); // replace with your image key
+                setTmpUsername(userData.username || "Guest");
+                setTmpBio(userData.bio || "hold up, let me cook.");
+                setTmpProfileURL(userData.pfpURL || defaulticon);
+            }
+        
+    }catch (error) {
+      console.error("Error loading user data:", error);
+    }
+   }
+   loadUserDataandRecipe();
+  }, []);
+  /**
+   * 
+   * useEffect(() => {
+   const loadUserDataandRecipe = async ()=>{
+    try{
         const userRecipe = await fetchMyRecipe();
         setUserRecipeList(userRecipe);
         if(userRecipe.length>0){
@@ -51,6 +78,8 @@ function UserProfile() {
    }
    loadUserDataandRecipe();
   }, []);
+   * 
+   */
   console.log(userRecipeList);
   console.log(userData);
   const totalPages = Math.ceil(userRecipeList.length / itemsPerPage);
@@ -176,7 +205,7 @@ function UserProfile() {
                         className=" cursor-pointer opacity-100 transition duration-300 ease-in-out hover:opacity-50"
                       >
                         <img
-                          src={`http://localhost:3000${profileURL} `|| tmpProfileURL}
+                          src={`temphttp://localhost:3000${profileURL} `|| tmpProfileURL}
                           className="md:w-20 md:h-20 w-16 h-16 rounded-full object-cover"
                         />
                       </label>
