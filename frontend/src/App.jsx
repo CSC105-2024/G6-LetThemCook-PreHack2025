@@ -7,7 +7,7 @@ import Login from './pages/login';
 import HomePage from './pages/homepage';
 import UserProfile from './pages/userProfile';
 import OtherProfilePage from './pages/otherProfile';
-import RecipeDisplay from './pages/RecipeDisplay';
+import RecipeDisplay from './pages/recipeDisplay';
 import Register from './pages/register';
 import fakeRecipe from './components/fakeRecipe'
 import Editor from './pages/editor'
