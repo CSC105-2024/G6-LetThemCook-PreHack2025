@@ -1,16 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchAllRecipe } from "../services/getAllRecipeService";
 import { useNavigate } from "react-router-dom";
-const allMenus = [
-  { id: 1, name: "Lasagna", image: "/Homepage/lasagna.svg" },
-  { id: 2, name: "Pancake", image: "/Homepage/Pancake.svg" },
-  { id: 3, name: "Ramen", image: "/Homepage/Ramen.svg" },
-  { id: 4, name: "Macaron", image: "/Homepage/Macaron.svg" },
-  { id: 5, name: "Phatkaphrao", image: "/Homepage/ThaiF.svg" },
-  { id: 6, name: "Tteok-bokki", image: "/Homepage/KoreanF.svg" },
-  { id: 7, name: "Miso Soup", image: "/Homepage/Miso-Soup.svg" },
-  { id: 8, name: "Fried Pork Belly", image: "/Homepage/Fried-Pork-Belly.svg" },
-];
 
 function RecommendedMenu() {
   const [recommendedMenus, setRecommendedMenus] = useState([]);
@@ -56,7 +46,7 @@ function RecommendedMenu() {
         <button
           onClick={handlePrev}
           disabled={currentPage === 0}
-          className="z-10 bg-white rounded-full p-2 shadow-md disabled:opacity-30 absolute top-1/2 left-0 -translate-y-1/2 -translate-x-full"
+          className="z-10 bg-white cursor-pointer rounded-full p-2 shadow-md disabled:opacity-30 absolute top-1/2 left-0 -translate-y-1/2 -translate-x-full"
         >
           ❮
         </button>
@@ -66,7 +56,7 @@ function RecommendedMenu() {
             <div
               onClick={()=>nav(`/recipe/${menu.id}`)}
               key={menu.id}
-              className="flex flex-col items-center w-full max-w-[300px] md:max-w-[400px]"
+              className="flex flex-col cursor-pointer items-center w-full max-w-[300px] md:max-w-[400px]"
             >
               <img
                 src={`http://localhost:3000${menu.image}`} 
@@ -80,7 +70,7 @@ function RecommendedMenu() {
         <button
           onClick={handleNext}
           disabled={currentPage === totalPages - 1}
-          className="z-10 bg-white rounded-full p-2 shadow-md disabled:opacity-30 absolute top-1/2 right-0 -translate-y-1/2 translate-x-full"
+          className="z-10 bg-white cursor-pointer rounded-full p-2 shadow-md disabled:opacity-30 absolute top-1/2 right-0 -translate-y-1/2 translate-x-full"
         >
           ❯
         </button>
