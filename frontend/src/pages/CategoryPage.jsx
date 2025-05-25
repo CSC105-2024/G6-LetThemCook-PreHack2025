@@ -7,7 +7,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { fetchAllRecipe } from "../services/getAllRecipeService";
-
+import { useNavigate } from 'react-router-dom';
 const slugToName = {
   "thai-food": "Thai Food",
   "italian-food": "Italian Food",
@@ -32,6 +32,7 @@ function CategoryPage() {
   };
 
   const { type } = useParams();
+  const nav = useNavigate();
   const defaultFoods = defaultFoodData[type] || [];
   const combinedFoods = [...defaultFoods];
   const title = slugToName[type] || "Unknown Category";
@@ -105,7 +106,7 @@ function CategoryPage() {
                   key={startIndex + index}
                   className="flex flex-col items-center w-full max-w-[450px]"
                 >
-                  <div className="w-full max-w-[450px] h-[240px] overflow-hidden rounded-xl shadow-md">
+                  <div onClick={()=>nav(`/recipe/${food.id}`)} className="w-full max-w-[450px] h-[240px] overflow-hidden rounded-xl shadow-md">
                     <div className="imgbox w-100 h-full bg-cover bg-center"
                     style={{
                       backgroundImage:`url(http://localhost:3000${food.image})`
