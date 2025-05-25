@@ -116,7 +116,7 @@ function Editor() {
     const parsed = recipeSchema.safeParse({
       title,
       nationality,
-      category,
+      category, 
       description,
       image,
       ingredients,
