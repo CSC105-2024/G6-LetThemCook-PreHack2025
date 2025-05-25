@@ -1,5 +1,4 @@
 
-
 function RecipeDisplay({ recipe }) {
     if (!recipe) {
     return <p min-h-screen flex >failed to download</p>; 
