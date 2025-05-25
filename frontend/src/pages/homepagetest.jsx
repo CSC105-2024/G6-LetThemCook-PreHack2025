@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function HomePageTest(){
+    const nav = useNavigate();
     const [recipe,setRecipe] = useState([]);
     const [myrecipe,setMyRecipe] = useState([]);
     const fetchRecipe = async () =>{
@@ -64,6 +66,7 @@ function HomePageTest(){
                 <div key={index} className="flex gap-2 p-10 border-1 m-4">
                     <p>{myre.title}</p>
                     <button onClick={()=>handleDelete(myre.id)} className="bg-gray-400 p-2">Delete</button>
+                    <button onClick={()=>nav("/add-recipe",{state:myre})} className="bg-gray-400 p-2">Edit</button>
                 </div>
             )
         })}

@@ -1,4 +1,5 @@
 
+import { create } from "domain";
 import { db } from "../index.ts";
 export const getRecipe = async (userId:number)=>{
     const posts = await db.recipe.findMany({
@@ -83,4 +84,43 @@ export const getAllRecipes = async ()=>{
     return allPost;
 }
 
-
+export const updateRecipe = async(
+    id:string,
+    data:{
+        title?:string,
+        description?: string;
+        image?: string | null;
+        category?: string;
+        nationality?: string;
+        ingredients?: string[];
+        steps?: string[];
+    }
+)=>{
+    if (data.ingredients) {
+    await db.ingredients.deleteMany({ where: { recipeId: id } });
+  }
+  if (data.steps) {
+    await db.steps.deleteMany({ where: { recipeId: id } });
+  }
+  const updated = await db.recipe.update({
+    where:{id},
+    data:{
+        title:data.title,
+        description: data.description,
+        image: data.image,
+        category: data.category,
+        nationality: data.nationality,
+        ingredients: data.ingredients
+        ?{ create: data.ingredients.map((name)=>({name}))}:
+        undefined,
+        steps: data.steps
+        ? { create: data.steps.map((step) => ({ Step_description: step })) }
+        : undefined,
+    },
+    include:{
+       ingredients: true,
+       steps: true, 
+    }
+  })
+  return updated;
+}

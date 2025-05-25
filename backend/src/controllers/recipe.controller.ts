@@ -157,3 +157,54 @@ export const getTargetRecipe = async (c:Context) =>{
   }
   
 }
+
+export const editRecipe = async (c: Context) => {
+  try {
+    const recipeId = c.req.param("id");
+    const form = await c.req.formData();
+
+    const fields = {
+      title: form.get("title") as string,
+      description: form.get("description") as string,
+      image: form.get("image") as File | null,
+      category: form.get("category") as string,
+      nationality: form.get("nationality") as string,
+    };
+
+    const ingredients: string[] = [];
+    const steps: string[] = [];
+
+    for (const [key, value] of form.entries()) {
+      if (key.startsWith("ingredients[")) {
+        ingredients.push(value as string);
+      }
+      if (key.startsWith("steps[")) {
+        steps.push(value as string);
+      }
+    }
+
+    const imagePath = fields.image ? await uploadFile(fields.image) : undefined;
+
+    const updated = await recipeModel.updateRecipe(recipeId, {
+      ...fields,
+      image: imagePath,
+      ingredients: ingredients.length ? ingredients : undefined,
+      steps: steps.length ? steps : undefined,
+    });
+
+    return c.json({
+      success: true,
+      data: updated,
+      msg: "Recipe updated successfully",
+    });
+  } catch (e) {
+    return c.json(
+      {
+        success: false,
+        data: null,
+        msg: `Internal Server Error: ${e}`,
+      },
+      500
+    );
+  }
+};

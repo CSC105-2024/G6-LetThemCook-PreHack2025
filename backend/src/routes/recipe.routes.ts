@@ -8,3 +8,4 @@ recipeRouter.use('*', authMiddleWare);
 recipeRouter.get('/', recipeController.getRecipe);
 recipeRouter.post('/addRecipe', recipeController.createRecipe);
 recipeRouter.delete('/:id', recipeController.deleteRecipe);
+recipeRouter.patch('/:id', recipeController.editRecipe);
