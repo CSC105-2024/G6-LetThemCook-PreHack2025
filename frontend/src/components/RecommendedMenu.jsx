@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchAllRecipe } from "../services/getAllRecipeService";
+import { useNavigate } from "react-router-dom";
 const allMenus = [
   { id: 1, name: "Lasagna", image: "/Homepage/lasagna.svg" },
   { id: 2, name: "Pancake", image: "/Homepage/Pancake.svg" },
@@ -41,7 +42,7 @@ function RecommendedMenu() {
   const totalPages = Math.ceil(recommendedMenus.length / itemsPerPage);
   const startIndex = currentPage * itemsPerPage;
   const visibleItems = recommendedMenus.slice(startIndex, startIndex + itemsPerPage);
-
+  const nav = useNavigate();
   const handlePrev = () => setCurrentPage((prev) => Math.max(prev - 1, 0));
   const handleNext = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1));
 
@@ -63,6 +64,7 @@ function RecommendedMenu() {
         <div className="flex gap-6 justify-center w-full px-4 md:px-10 transition-all duration-300">
           {visibleItems.map((menu) => (
             <div
+              onClick={()=>nav(`/recipe/${menu.id}`)}
               key={menu.id}
               className="flex flex-col items-center w-full max-w-[300px] md:max-w-[400px]"
             >

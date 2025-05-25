@@ -25,10 +25,10 @@ function CategoryPage() {
     "italian-food": allFood.filter((food) => food.nationality == "Italian"),
     "japanese-food": allFood.filter((food) => food.nationality == "Japanese"),
     "korean-food": allFood.filter((food) => food.nationality == "Korean"),
-    dessert: allFood.filter((food) => food.category == "Dessert"),
-    fried: allFood.filter((food) => food.category == "Fried"),
-    boiled: allFood.filter((food) => food.category == "Boiled"),
-    soup: allFood.filter((food) => food.category == "Soup"),
+    "dessert": allFood.filter((food) => food.category == "Dessert"),
+    "fried": allFood.filter((food) => food.category == "Fried"),
+    "boiled": allFood.filter((food) => food.category == "Boiled"),
+    "soup": allFood.filter((food) => food.category == "Soup"),
   };
 
   const { type } = useParams();
