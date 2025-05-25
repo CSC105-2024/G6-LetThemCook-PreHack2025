@@ -7,7 +7,9 @@ const recipeSchema = z.object({
   nationality: z.string().min(1),
   category: z.string().min(1),
   description: z.string().optional(),
-  image: z.any().nullable(),
+  image: z.any().refine((val)=> val instanceof File, {
+    message:"Please upload an image"
+  }),
   ingredients: z
     .array(z.string().min(1, "Empty ingredient."))
     .min(1, "Please add at least one ingredient"),
@@ -159,7 +161,7 @@ function Editor() {
         console.error("Failed to submit:", errText);
         return;
       }
-      navigate("/homeTest");
+      navigate("/homePage");
     } catch (err) {
       console.error("Network error:", err);
     }
@@ -187,8 +189,8 @@ function Editor() {
         </div>
         <h4 className="text-3xl font-bold">Add your recipe</h4>
         <div className="inputTitle flex flex-col gap-2">
-          <label>
-            Recipe Title <span className="text-red-500">*</span>{" "}
+          <label className="font-semibold">
+            Recipe Title <span className="text-red-500">*</span>
           </label>
           <input
             className="px-4 py-3 border-1 w-full rounded-[10px]"
@@ -203,7 +205,7 @@ function Editor() {
         <div className="dropd">
           <div className="dropdowm flex w-full flex-col md:flex-row gap-5 ">
             <div className="md:w-1/2 flex flex-col gap-2">
-              <label className="w-1/2">Nationality</label>
+              <label className="w-1/2 font-semibold">Nationality</label>
               <select
                 className="w-full border-1 rounded-[10px] px-2 py-2"
                 value={nationality}
@@ -216,7 +218,7 @@ function Editor() {
               </select>
             </div>
             <div className="md:w-1/2 flex flex-col gap-2">
-              <label className="w-1/2">Category</label>
+              <label className="w-1/2 font-semibold">Category</label>
               <select
                 className="w-full border-1 rounded-[10px] px-2 py-2"
                 value={category}
@@ -254,12 +256,15 @@ function Editor() {
               htmlFor="imageUpload"
               className=" my-10 cursor-pointer bg-[#6b675f] hover:bg-[#5c5851] text-white font-bold py-2 px-4 rounded-[10px]"
             >
-              CHOOSE FILE
+              CHOOSE FILE <span className="text-white">*</span>
             </label>
           </div>
         </div>
+        {submitted && errors.image && (
+          <p className="text-red-500 text-center">{errors.image._errors[0]}</p>
+        )}
         <div className="des flex flex-col gap-2">
-          <p>Description</p>
+          <p className="font-semibold">Description</p>
           <textarea
             className="px-4 py-3 border-1 w-full rounded-[10px]"
             type="text"
@@ -268,8 +273,9 @@ function Editor() {
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
+        
         <div className="ingreInput">
-          <h4 className="font-bold text-2xl">Ingredients</h4>
+          <h4 className="font-semibold ">Ingredients <span className="text-red-500">*</span></h4>
           <ul className="addIngreBox">
             {ingredients.map((ing, index) => (
               <li key={index} className="flex gap-2 py-3">
@@ -311,7 +317,7 @@ function Editor() {
 
         <hr />
         <div className="DirectionInput">
-          <h4 className="font-bold text-2xl">Directions</h4>
+          <h4 className="font-semibold">Directions  <span className="text-red-500">*</span></h4>
           <ul className="addDirecBox">
             {steps.map((step, index) => (
               <li key={index} className="flex gap-2 py-3">
@@ -354,7 +360,7 @@ function Editor() {
           <button
             className="cursor-pointer rounded-[10px] hover:text-red-500 px-5 py-4 font-bold text-black text-md  "
             type="button"
-            onClick={() => navigate("/homeTest")}
+            onClick={() => navigate("/homePage")}
           >
             CANCEL
           </button>

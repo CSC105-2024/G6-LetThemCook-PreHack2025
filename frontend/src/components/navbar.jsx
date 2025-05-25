@@ -15,9 +15,6 @@ function NavBar() {
   };
 
   const handleLogoutClick = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("user");
-
     setDropdownOpen(false);
     setSidebarOpen(false);
     localStorage.clear();
@@ -28,10 +25,7 @@ function NavBar() {
     navigate("/add-recipe");
   };
 
-  const storedUser = JSON.parse(localStorage.getItem("user")) || {
-  name: "UserName",
-  email: "email@gmail.com"
-};
+
 
 
   return (
