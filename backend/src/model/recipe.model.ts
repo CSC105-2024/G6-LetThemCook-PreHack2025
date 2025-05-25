@@ -72,7 +72,8 @@ export const getRecipeById = async (id:string)=>{
         where:{id},
         include:{
             ingredients:true,
-            steps:true
+            steps:true,
+            user:true,
         }
     }) 
     return getRecipeById;
