@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 import { fetchRecipeById } from "../services/getRecipeById";
 import defaulticon from "/userProfile/defaulticon.png";
 import NavBar from "../components/navbar";
-
+import { useNavigate } from "react-router-dom";
 function RecipeDisplay() {
   const { id } = useParams(); 
   const [recipe, setRecipe] = useState(null);
-
+  const nav =useNavigate();
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
@@ -27,8 +27,8 @@ function RecipeDisplay() {
   return (
     <>
     <NavBar/>
-    <div className="min-h-screen bg-[#E9E5DC] p-6 md:flex justify-center items-center">
-      <div className="bg-white recipe-box w-full max-w-5xl rounded-lg shadow-md p-6 md:p-10 -mt-20">
+    <div className="min-h-screen bg-[#E9E5DC] p-6 md:flex ">
+      <div className="bg-white recipe-box w-full max-w-5xl rounded-lg shadow-md p-6 md:p-10 mx-auto ">
         <div className="flex  flex-col md:flex-row gap-6 mt-10">
           <div className="img-box flex items-center justify-center">
           <img
@@ -38,7 +38,7 @@ function RecipeDisplay() {
           />
           </div>
           <div className="flex-1">
-            <h1 className="text-3xl md:text-5xl font-bold mb-4">{recipe.title}</h1>
+            <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-4">{recipe.title}</h1>
             <hr/>
             <p className="text-gray-600 md:text-lg mt-2">{recipe.description}</p>
             <div className="flex items-center mt-4 gap-2">
@@ -47,7 +47,7 @@ function RecipeDisplay() {
                 src={recipe.user?.profileImage || defaulticon}
                 className="w-8 h-8 md:w-10 md:h-10 rounded-full"
               />
-              <p className="font-semibold md:text-lg">{recipe.user?.username}</p>
+              <p onClick={()=>nav(`/userProfile/${recipe.userId}`, {state:{userId: recipe.userId}})}  className="font-semibold md:text-lg hover:underline">{recipe.user?.username}</p>
             </div>
           </div>
         </div>

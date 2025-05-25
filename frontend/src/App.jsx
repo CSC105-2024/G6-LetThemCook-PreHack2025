@@ -30,7 +30,7 @@ function App() {
           <Route path="/category/:type" element={<CategoryPage />} />
           <Route path="/pages/countryChoose" element={<CountryChoosePage />} />
           <Route path='/myProfile' element={<UserProfile/>}/>
-          <Route path='/userProfile'element={<OtherProfilePage/>}/> 
+          <Route path='/userProfile/:id'element={<OtherProfilePage/>}/> 
           <Route path='/recipe/:id' element={<RecipeDisplay />} />
         </Routes>
       </Router>

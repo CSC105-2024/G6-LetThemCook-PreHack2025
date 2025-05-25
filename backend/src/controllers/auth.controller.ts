@@ -2,7 +2,7 @@ import type { Context } from "hono";
 import * as authModel from "../model/user.model.ts";
 import { generateToken } from "../utils/token.ts";
 import { setCookie } from "hono/cookie";
-import jwt from "jsonwebtoken";
+
 type AuthBody = {
   userId: number;
   email: string;
@@ -131,3 +131,5 @@ export const getUserData = async (c:Context)=>{
     },500)
   }
 }
+
+

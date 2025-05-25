@@ -352,14 +352,14 @@ function Editor() {
         <hr />
         <div className="edit-btn flex justify-end gap-3">
           <button
-            className="cursor-pointer rounded-[10px] px-5 py-4 font-bold text-black text-md  "
+            className="cursor-pointer rounded-[10px] hover:text-red-500 px-5 py-4 font-bold text-black text-md  "
             type="button"
             onClick={() => navigate("/homeTest")}
           >
             CANCEL
           </button>
           <button
-            className="cursor-pointer rounded-[10px] px-5 py-4 font-bold text-white text-md bg-[#AE7E67] "
+            className="cursor-pointer hover:bg-[#8d6553] rounded-[10px] px-5 py-4 font-bold text-white text-md bg-[#AE7E67] "
             type="submit"
           >
             SUBMIT

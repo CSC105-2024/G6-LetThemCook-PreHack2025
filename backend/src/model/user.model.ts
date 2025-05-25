@@ -54,6 +54,7 @@ export const getUserData = async (userId: number) => {
       username: true,
       bio: true,
       pfpURL: true,
+      recipe:true
     },
   });
 };
