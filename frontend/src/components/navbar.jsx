@@ -11,7 +11,7 @@ function NavBar() {
   const handleProfileClick = () => {
     setDropdownOpen(false);
     setSidebarOpen(false);
-    navigate("/pages/userProfile");
+    navigate("/myProfile");
   };
 
   const handleLogoutClick = () => {
