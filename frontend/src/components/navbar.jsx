@@ -11,13 +11,10 @@ function NavBar() {
   const handleProfileClick = () => {
     setDropdownOpen(false);
     setSidebarOpen(false);
-    navigate("/pages/userProfile");
+    navigate("/myProfile");
   };
 
   const handleLogoutClick = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("user");
-
     setDropdownOpen(false);
     setSidebarOpen(false);
     localStorage.clear();
@@ -28,10 +25,7 @@ function NavBar() {
     navigate("/add-recipe");
   };
 
-  const storedUser = JSON.parse(localStorage.getItem("user")) || {
-  name: "UserName",
-  email: "email@gmail.com"
-};
+
 
 
   return (
@@ -57,7 +51,7 @@ function NavBar() {
         <div className="flex items-center space-x-4">
           <button
             onClick={handlePostRecipe}
-            className="flex items-center justify-center bg-[#5C6A51] hover:bg-[#4d6246] text-white font-medium p-2 md:py-2 md:px-4 rounded-full md:rounded-lg shadow transition-all duration-200"
+            className="flex items-center justify-center cursor-pointer bg-[#5C6A51] hover:bg-[#4d6246] text-white font-medium p-2 md:py-2 md:px-4 rounded-full md:rounded-lg shadow transition-all duration-200"
           >
             <FontAwesomeIcon icon={faPenToSquare} />
             <span className="hidden md:inline ml-2">Post Recipe</span>
@@ -123,3 +117,4 @@ function NavBar() {
 }
 
 export default NavBar;
+

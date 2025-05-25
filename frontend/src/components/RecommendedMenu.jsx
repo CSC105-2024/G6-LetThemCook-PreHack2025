@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchAllRecipe } from "../services/getAllRecipeService";
-const allMenus = [
-  { id: 1, name: "Lasagna", image: "/Homepage/lasagna.svg" },
-  { id: 2, name: "Pancake", image: "/Homepage/Pancake.svg" },
-  { id: 3, name: "Ramen", image: "/Homepage/Ramen.svg" },
-  { id: 4, name: "Macaron", image: "/Homepage/Macaron.svg" },
-  { id: 5, name: "Phatkaphrao", image: "/Homepage/ThaiF.svg" },
-  { id: 6, name: "Tteok-bokki", image: "/Homepage/KoreanF.svg" },
-  { id: 7, name: "Miso Soup", image: "/Homepage/Miso-Soup.svg" },
-  { id: 8, name: "Fried Pork Belly", image: "/Homepage/Fried-Pork-Belly.svg" },
-];
+import { useNavigate } from "react-router-dom";
 
 function RecommendedMenu() {
   const [recommendedMenus, setRecommendedMenus] = useState([]);
@@ -41,7 +32,7 @@ function RecommendedMenu() {
   const totalPages = Math.ceil(recommendedMenus.length / itemsPerPage);
   const startIndex = currentPage * itemsPerPage;
   const visibleItems = recommendedMenus.slice(startIndex, startIndex + itemsPerPage);
-
+  const nav = useNavigate();
   const handlePrev = () => setCurrentPage((prev) => Math.max(prev - 1, 0));
   const handleNext = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1));
 
@@ -55,7 +46,7 @@ function RecommendedMenu() {
         <button
           onClick={handlePrev}
           disabled={currentPage === 0}
-          className="z-10 bg-white rounded-full p-2 shadow-md disabled:opacity-30 absolute top-1/2 left-0 -translate-y-1/2 -translate-x-full"
+          className="z-10 bg-white cursor-pointer rounded-full p-2 shadow-md disabled:opacity-30 absolute top-1/2 left-0 -translate-y-1/2 -translate-x-full"
         >
           ❮
         </button>
@@ -63,13 +54,14 @@ function RecommendedMenu() {
         <div className="flex gap-6 justify-center w-full px-4 md:px-10 transition-all duration-300">
           {visibleItems.map((menu) => (
             <div
+              onClick={()=>nav(`/recipe/${menu.id}`)}
               key={menu.id}
-              className="flex flex-col items-center w-full max-w-[300px] md:max-w-[400px]"
+              className="flex flex-col cursor-pointer items-center w-full max-w-[300px] md:max-w-[400px]"
             >
               <img
                 src={`http://localhost:3000${menu.image}`} 
                 alt={menu.title}
-                className="w-full h-auto aspect-[4/3] object-cover rounded-lg shadow-md"
+                className="w-100 h-auto aspect-[4/3] object-cover rounded-lg shadow-md"
               />
               <p className="mt-3 font-semibold text-center text-lg">{menu.name}</p>
             </div>
@@ -78,7 +70,7 @@ function RecommendedMenu() {
         <button
           onClick={handleNext}
           disabled={currentPage === totalPages - 1}
-          className="z-10 bg-white rounded-full p-2 shadow-md disabled:opacity-30 absolute top-1/2 right-0 -translate-y-1/2 translate-x-full"
+          className="z-10 bg-white cursor-pointer rounded-full p-2 shadow-md disabled:opacity-30 absolute top-1/2 right-0 -translate-y-1/2 translate-x-full"
         >
           ❯
         </button>

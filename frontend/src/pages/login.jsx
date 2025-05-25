@@ -35,7 +35,6 @@ function Login() {
       }
 
       localStorage.setItem("userId", String(userId));
-      alert("Login successful");
       nav("/homePage");
     } else {
       alert(data.msg || "Login failed");

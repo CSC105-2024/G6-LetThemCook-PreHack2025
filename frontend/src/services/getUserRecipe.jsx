@@ -1,5 +1,5 @@
-export const fetchAllRecipe = async () =>{
-        const res = await fetch("http://localhost:3000/recipe/all",{
+export const fetchMyRecipe = async () =>{
+        const res = await fetch("http://localhost:3000/recipe",{
             method:"GET",
             credentials:"include"
         })

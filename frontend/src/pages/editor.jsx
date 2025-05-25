@@ -1,6 +1,7 @@
 import { z } from "zod";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate , useLocation} from "react-router-dom";
+
 const recipeSchema = z.object({
   title: z.string().min(1, "Please enter a recipe title."),
   nationality: z.string().min(1),
@@ -27,6 +28,27 @@ function Editor() {
   const [imagePreview, setImagePreview] = useState(null);
   const [ingredients, setIngredients] = useState([""]);
   const [steps, setSteps] = useState([""]);
+  const location = useLocation();
+  const editMode = location.state?.mode === "edit";
+  const editingRecipe = location.state?.recipe ?? null;
+  useEffect(()=>{
+    if(editMode && editingRecipe){
+      setTitle(editingRecipe.title || "");
+      setNationality(editingRecipe.nationality || "Thai");
+      setCategory(editingRecipe.category || "Dessert");
+      setDescription(editingRecipe.description || "");
+      setIngredients(
+        Array.isArray(editingRecipe.ingredients)?
+        editingRecipe.ingredients.map((i)=> typeof i === "string"? i : i.name ?? ""):[""]
+      );
+      setSteps(
+        Array.isArray(editingRecipe.steps)?
+        editingRecipe.steps.map((s)=>(typeof s === "string" ? s : s.Step_description
+ ?? "")):[""]
+      );
+      setImagePreview(editingRecipe.image ? `http://localhost:3000${editingRecipe.image}` : null );
+    }
+},[editMode,editingRecipe]);
 
   const handleAddIngredient = (e) => {
     e.preventDefault();
@@ -94,7 +116,7 @@ function Editor() {
     const parsed = recipeSchema.safeParse({
       title,
       nationality,
-      category,
+      category, 
       description,
       image,
       ingredients,
@@ -114,7 +136,7 @@ function Editor() {
     formData.append("nationality", nationality);
     formData.append("category", category);
     formData.append("description", description);
-    if (image) formData.append("image", image);
+    if (image && image instanceof File) formData.append("image", image);
     ingredients.forEach((item, i) =>
       formData.append(`ingredients[${i}]`, item)
     );
@@ -123,20 +145,21 @@ function Editor() {
     console.log("Submitting FormData:", formData);
 
     try {
-      const res = await fetch("http://localhost:3000/recipe/addRecipe", {
-        method: "POST",
-        credentials: "include",
-        body: formData,
-      });
-      if (!res.ok) {
-        const errorText = await res.text();
-        console.error("Failed to create post:", errorText);
+      const url = editMode
+      ? `http://localhost:3000/recipe/${editingRecipe.id}`
+      : "http://localhost:3000/recipe/addRecipe"
+      const method = editMode ? "PATCH":"POST";
+      const res = await fetch(url,{
+        method,
+        credentials:"include",
+        body:formData
+      })
+      if(!res.ok){
+        const errText = await res.text();
+        console.error("Failed to submit:", errText);
         return;
       }
-      const data = await res.json();
-      console.log(data);
-      navigate("/homeTest")
-
+      navigate("/myProfile");
     } catch (err) {
       console.error("Network error:", err);
     }
@@ -164,8 +187,8 @@ function Editor() {
         </div>
         <h4 className="text-3xl font-bold">Add your recipe</h4>
         <div className="inputTitle flex flex-col gap-2">
-          <label>
-            Recipe Title <span className="text-red-500">*</span>{" "}
+          <label className="font-semibold">
+            Recipe Title <span className="text-red-500">*</span>
           </label>
           <input
             className="px-4 py-3 border-1 w-full rounded-[10px]"
@@ -180,7 +203,7 @@ function Editor() {
         <div className="dropd">
           <div className="dropdowm flex w-full flex-col md:flex-row gap-5 ">
             <div className="md:w-1/2 flex flex-col gap-2">
-              <label className="w-1/2">Nationality</label>
+              <label className="w-1/2 font-semibold">Nationality</label>
               <select
                 className="w-full border-1 rounded-[10px] px-2 py-2"
                 value={nationality}
@@ -193,7 +216,7 @@ function Editor() {
               </select>
             </div>
             <div className="md:w-1/2 flex flex-col gap-2">
-              <label className="w-1/2">Category</label>
+              <label className="w-1/2 font-semibold">Category</label>
               <select
                 className="w-full border-1 rounded-[10px] px-2 py-2"
                 value={category}
@@ -231,12 +254,12 @@ function Editor() {
               htmlFor="imageUpload"
               className=" my-10 cursor-pointer bg-[#6b675f] hover:bg-[#5c5851] text-white font-bold py-2 px-4 rounded-[10px]"
             >
-              CHOOSE FILE
+              CHOOSE FILE <span className="text-white">*</span>
             </label>
           </div>
         </div>
         <div className="des flex flex-col gap-2">
-          <p>Description</p>
+          <p className="font-semibold">Description</p>
           <textarea
             className="px-4 py-3 border-1 w-full rounded-[10px]"
             type="text"
@@ -245,8 +268,9 @@ function Editor() {
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
+        
         <div className="ingreInput">
-          <h4 className="font-bold text-2xl">Ingredients</h4>
+          <h4 className="font-semibold ">Ingredients <span className="text-red-500">*</span></h4>
           <ul className="addIngreBox">
             {ingredients.map((ing, index) => (
               <li key={index} className="flex gap-2 py-3">
@@ -288,7 +312,7 @@ function Editor() {
 
         <hr />
         <div className="DirectionInput">
-          <h4 className="font-bold text-2xl">Directions</h4>
+          <h4 className="font-semibold">Directions  <span className="text-red-500">*</span></h4>
           <ul className="addDirecBox">
             {steps.map((step, index) => (
               <li key={index} className="flex gap-2 py-3">
@@ -329,14 +353,14 @@ function Editor() {
         <hr />
         <div className="edit-btn flex justify-end gap-3">
           <button
-            className="cursor-pointer rounded-[10px] px-5 py-4 font-bold text-black text-md  "
+            className="cursor-pointer rounded-[10px] hover:text-red-500 px-5 py-4 font-bold text-black text-md  "
             type="button"
-            onClick={() => window.location.reload()}
+            onClick={() => navigate("/homePage")}
           >
             CANCEL
           </button>
           <button
-            className="cursor-pointer rounded-[10px] px-5 py-4 font-bold text-white text-md bg-[#AE7E67] "
+            className="cursor-pointer hover:bg-[#8d6553] rounded-[10px] px-5 py-4 font-bold text-white text-md bg-[#AE7E67] "
             type="submit"
           >
             SUBMIT

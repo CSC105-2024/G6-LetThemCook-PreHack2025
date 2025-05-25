@@ -2,7 +2,7 @@ import type { Context } from "hono";
 import * as authModel from "../model/user.model.ts";
 import { generateToken } from "../utils/token.ts";
 import { setCookie } from "hono/cookie";
-import jwt from "jsonwebtoken";
+
 type AuthBody = {
   userId: number;
   email: string;
@@ -106,3 +106,30 @@ export const profileUpdate = async (c: Context) => {
     );
   }
 };
+
+export const getUserData = async (c:Context)=>{
+  try{
+    const userId = Number(c.req.param("userId"));
+    const userData = await authModel.getUserData(userId);
+    if(!userData){
+      return c.json({
+        success:false,
+        data:null,
+        msg: "User not found",
+      },404)
+    }
+    return c.json({
+      success:true,
+      data:userData,
+      msg: "User fetched successfully",
+    })
+  }catch(e){
+    return c.json({
+      success:false,
+      data:null,
+      msg:`Internal Server Error ${e}`
+    },500)
+  }
+}
+
+

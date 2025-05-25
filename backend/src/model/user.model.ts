@@ -47,4 +47,14 @@ export const updateUserProfile = async (
         }
     })
 }
-
+export const getUserData = async (userId: number) => {
+  return db.user.findUnique({
+    where: { id: userId },
+    select: {
+      username: true,
+      bio: true,
+      pfpURL: true,
+      recipe:true
+    },
+  });
+};
