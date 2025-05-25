@@ -205,9 +205,10 @@ function UserProfile() {
                         className=" cursor-pointer opacity-100 transition duration-300 ease-in-out hover:opacity-50"
                       >
                         <img
-                          src={`temphttp://localhost:3000${profileURL} `|| tmpProfileURL}
-                          className="md:w-20 md:h-20 w-16 h-16 rounded-full object-cover"
+                        src={tmpProfileURL.startsWith("blob:") ? tmpProfileURL : `http://localhost:3000${tmpProfileURL}`}
+                        className="md:w-20 md:h-20 w-16 h-16 rounded-full object-cover"
                         />
+
                       </label>
                       <input
                         id="profile-upload"
