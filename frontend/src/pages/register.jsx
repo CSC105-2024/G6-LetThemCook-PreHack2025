@@ -71,7 +71,7 @@ function Register() {
             className="absolute top-0 right-10 hidden md:block"
           />
           <div className="regis-left flex flex-col gap-6">
-            <h3 className="text-5xl font-bold">Sign up</h3>
+            <h3 className="text-5xl font-black font-serif4">Sign up</h3>
             <form
               onSubmit={handleSubmit(handleRegister)}
               className="input-field flex flex-col gap-3"
