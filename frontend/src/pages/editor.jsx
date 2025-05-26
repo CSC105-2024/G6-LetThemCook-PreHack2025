@@ -226,6 +226,7 @@ function Editor() {
                 <option>Fried</option>
                 <option>Boiled</option>
                 <option>Soup</option>
+                <option>Others</option>
               </select>
             </div>
           </div>
