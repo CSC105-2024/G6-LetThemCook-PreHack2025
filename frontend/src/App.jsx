@@ -16,6 +16,7 @@ import OtherProfilePage from './pages/otherProfile';
 import RecipeDisplay from './pages/recipeDisplay';
 import fakeRecipe from './components/fakeRecipe'
 import ProtectedLayout from './components/protectedLayout';
+import NotFoundPage from './pages/NotFound';
 const router = createBrowserRouter([
   {
     path:"/",
@@ -35,7 +36,8 @@ const router = createBrowserRouter([
       {path:"/pages/countryChoose", element:<CountryChoosePage />},
       {path:"/myProfile", element:<UserProfile/>},
       {path:"/userProfile/:id", element:<OtherProfilePage/>},
-      {path:"/recipe/:id", element:<RecipeDisplay/>}
+      {path:"/recipe/:id", element:<RecipeDisplay/>},
+      {path:"*",element:<NotFoundPage/>}
     ]
   }
 ])
