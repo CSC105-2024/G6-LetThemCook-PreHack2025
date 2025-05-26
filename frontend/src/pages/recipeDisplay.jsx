@@ -60,7 +60,7 @@ function RecipeDisplay() {
                 <li key={index}>{item.name}</li>
               ))}
             </ul>
-          </div>
+          </div>1
           <div>
             <h2 className="text-xl md:text-2xl font-semibold mb-2 mt-10 md:mt-0">
               Directions
