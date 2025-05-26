@@ -44,7 +44,7 @@ function RecipeDisplay() {
             <div className="flex items-center mt-4 gap-2">
               <img
                 alt="User"
-                src={recipe.user?.profileImage || defaulticon}
+                src={recipe.user.pfpURL ? `http://localhost:3000${recipe.user.pfpURL}`: defaulticon}
                 className="w-8 h-8 md:w-10 md:h-10 rounded-full"
               />
               <p onClick={()=>nav(`/userProfile/${recipe.userId}`, {state:{userId: recipe.userId}})}  className="font-semibold md:text-lg hover:underline">{recipe.user?.username}</p>

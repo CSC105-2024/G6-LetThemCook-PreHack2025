@@ -30,12 +30,12 @@ function OtherProfilePage() {
       if (data) {
         setUsername(data.username || "Unnamed Cook");
         setBio(data.bio || "This user hasn't written a bio yet.");
-        setProfileURL(data.profileURL || defaulticon);
+        setProfileURL(data.pfpURL || defaulticon);
         setRecipes(data.recipe || []);
       }
     });
   }, [userId]);
- 
+  console.log(profileURL); 
   return (
     <>
       <NavBar />
@@ -48,7 +48,7 @@ function OtherProfilePage() {
             <div className="flex items-center">
               <div className="w-24 h-24 rounded-full overflow-hidden flex items-center flex-shrink-0 justify-center">
                 <img
-                  src={profileURL || defaulticon}
+                  src={profileURL ?`http://localhost:3000${profileURL}`: defaulticon}
                   className="w-full h-full object-cover"
                   alt="Profile"
                 />
