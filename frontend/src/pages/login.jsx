@@ -60,7 +60,7 @@ function Login() {
         <img src="Login\Login-pic2.svg" className="absolute right-0 top-0" />
         <div className="login-container gap-10 w-full flex flex-col justify-center px-20 lg:px-30 ">
           <div className="left-header gap-3 flex text-center flex-col">
-            <h3 className="text-5xl text-nowrap font-bold">LetThemCook</h3>
+            <h3 className="text-5xl text-nowrap font-bold font-serif4">LetThemCook</h3>
             <h4>Let's show off your cooking skills! </h4>
           </div>
           <div className="input-field flex flex-col gap-3">

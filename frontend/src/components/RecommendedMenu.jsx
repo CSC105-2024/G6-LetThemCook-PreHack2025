@@ -9,15 +9,15 @@ function RecommendedMenu() {
 
   useEffect(() => {
     //setRecommendedMenus(getRandomMenus());
-    const loadAllRecipe = async () =>{
-      try{
+    const loadAllRecipe = async () => {
+      try {
         const allRecipe = await fetchAllRecipe();
-        const shffled = allRecipe.sort(()=> 0.5 - Math.random()).slice(0,4)
+        const shffled = allRecipe.sort(() => 0.5 - Math.random()).slice(0, 4);
         setRecommendedMenus(shffled);
-      }catch(error){
+      } catch (error) {
         console.error("Error fetching recipes:", error);
       }
-    }
+    };
     loadAllRecipe();
 
     const updateItemsPerPage = () => {
@@ -31,14 +31,18 @@ function RecommendedMenu() {
 
   const totalPages = Math.ceil(recommendedMenus.length / itemsPerPage);
   const startIndex = currentPage * itemsPerPage;
-  const visibleItems = recommendedMenus.slice(startIndex, startIndex + itemsPerPage);
+  const visibleItems = recommendedMenus.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
   const nav = useNavigate();
   const handlePrev = () => setCurrentPage((prev) => Math.max(prev - 1, 0));
-  const handleNext = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1));
+  const handleNext = () =>
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1));
 
   return (
     <div className="my-12 px-4 md:px-8 lg:px-16">
-      <h2 className="text-2xl font-semibold text-center mb-6">
+      <h2 className="text-2xl font-semibold font-serif4 text-center mb-6">
         Looking for Ideas? Try These Recommended Recipes!
       </h2>
 
@@ -54,16 +58,22 @@ function RecommendedMenu() {
         <div className="flex gap-6 justify-center w-full px-4 md:px-10 transition-all duration-300">
           {visibleItems.map((menu) => (
             <div
-              onClick={()=>nav(`/recipe/${menu.id}`)}
+              onClick={() => nav(`/recipe/${menu.id}`)}
               key={menu.id}
               className="flex flex-col cursor-pointer items-center w-full max-w-[300px] md:max-w-[400px]"
             >
               <img
-                src={menu.image ? `http://localhost:3000${menu.image}`: "/userProfile/noImg.png"} 
+                src={
+                  menu.image
+                    ? `http://localhost:3000${menu.image}`
+                    : "/userProfile/noImg.png"
+                }
                 alt={menu.title}
                 className="w-100 h-auto aspect-[4/3] object-cover rounded-lg shadow-md"
               />
-              <p className="mt-3 font-semibold text-center text-lg">{menu.title}</p>
+              <p className="mt-3 font-semibold text-center text-lg">
+                {menu.title}
+              </p>
             </div>
           ))}
         </div>

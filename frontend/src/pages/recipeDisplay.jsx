@@ -38,7 +38,7 @@ function RecipeDisplay() {
           />
           </div>
           <div className="flex-1">
-            <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-4">{recipe.title}</h1>
+            <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-4 font-serif4">{recipe.title}</h1>
             <hr/>
             <p className="text-gray-600 md:text-lg mt-2">{recipe.description}</p>
             <div className="flex items-center mt-4 gap-2">
@@ -54,15 +54,15 @@ function RecipeDisplay() {
 
         <div className="mt-10 grid grid-cols-1 md:grid-cols-2">
           <div>
-            <h2 className="text-xl md:text-2xl font-semibold mb-2">Ingredients</h2>
+            <h2 className="text-xl md:text-2xl font-semibold font-serif4 mb-2">Ingredients</h2>
             <ul className="list-disc list-inside">
               {(recipe.ingredients ?? []).map((item,index)=>(
                 <li key={index}>{item.name}</li>
               ))}
             </ul>
-          </div>1
+          </div>
           <div>
-            <h2 className="text-xl md:text-2xl font-semibold mb-2 mt-10 md:mt-0">
+            <h2 className="text-xl md:text-2xl font-semibold mb-2 font-serif4 mt-10 md:mt-0">
               Directions
             </h2>
             <ol className="list-decimal">
