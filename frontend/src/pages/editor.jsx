@@ -185,7 +185,7 @@ function Editor() {
           <div className="circle bg-[#D9D9D9] h-5 w-5 rounded-full"></div>
           <div className="circle bg-[#D9D9D9] h-5 w-5 rounded-full"></div>
         </div>
-        <h4 className="text-3xl font-bold">Add your recipe</h4>
+        <h4 className="text-3xl font-bold font-serif4">Add your recipe</h4>
         <div className="inputTitle flex flex-col gap-2">
           <label className="font-semibold">
             Recipe Title <span className="text-red-500">*</span>

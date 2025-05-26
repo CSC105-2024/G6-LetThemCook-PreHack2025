@@ -42,7 +42,7 @@ function OtherProfilePage() {
       <div className="min-h-screen bg-[#E9E5DC] flex items-center justify-center px-4">
         <div className="my-10 w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-3xl xl:max-w-4xl bg-white p-6 lg:py-16 sm:p-8 md:p-10 rounded-lg shadow-md">
           <div className="w-full">
-            <h1 className="text-black font-bold text-lg mb-4 lg:text-2xl">
+            <h1 className="text-black font-bold text-lg mb-4 lg:text-3xl font-serif4">
               {username}'s Profile
             </h1>
             <div className="flex items-center">

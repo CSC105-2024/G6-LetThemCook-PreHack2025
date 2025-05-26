@@ -60,7 +60,7 @@ function NavBar() {
             alt="Logo"
             onClick={() => navigate("/homepage")}
           />
-          <h1 className="text-xl font-semibold text-gray-800">LetThemCook</h1>
+          <h1 className="text-xl font-semibold text-gray-800 font-serif4">LetThemCook</h1>
         </div>
         <div className="flex items-center space-x-4">
           <button

@@ -5,7 +5,11 @@ import FoodGrid from "../components/FoodGrid";
 
 const internationalFoods = [
   { name: "Thai Food", img: "/Homepage/ThaiF.svg", slug: "thai-food" },
-  { name: "Japanese Food", img: "/Homepage/JapaneseF.svg", slug: "japanese-food" },
+  {
+    name: "Japanese Food",
+    img: "/Homepage/JapaneseF.svg",
+    slug: "japanese-food",
+  },
   { name: "Italian Food", img: "/Homepage/ItalianF.svg", slug: "italian-food" },
   { name: "Korean Food", img: "/Homepage/KoreanF.svg", slug: "korean-food" },
 ];
