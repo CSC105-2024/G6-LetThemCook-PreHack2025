@@ -32,7 +32,7 @@ function RecipeDisplay() {
         <div className="flex  flex-col md:flex-row gap-6 mt-10">
           <div className="img-box flex items-center justify-center">
           <img
-            src={`http://localhost:3000${recipe.image}`}
+            src={ recipe.image ? `http://localhost:3000${recipe.image}`:"/userProfile/noImg.png"}
             alt="Recipe"
             className="w-100 md:w-130  rounded-md"
           />
@@ -44,7 +44,7 @@ function RecipeDisplay() {
             <div className="flex items-center mt-4 gap-2">
               <img
                 alt="User"
-                src={recipe.user?.profileImage || defaulticon}
+                src={recipe.user.pfpURL ? `http://localhost:3000${recipe.user.pfpURL}`: defaulticon}
                 className="w-8 h-8 md:w-10 md:h-10 rounded-full"
               />
               <p onClick={()=>nav(`/userProfile/${recipe.userId}`, {state:{userId: recipe.userId}})}  className="font-semibold md:text-lg hover:underline">{recipe.user?.username}</p>
@@ -60,7 +60,7 @@ function RecipeDisplay() {
                 <li key={index}>{item.name}</li>
               ))}
             </ul>
-          </div>
+          </div>1
           <div>
             <h2 className="text-xl md:text-2xl font-semibold mb-2 mt-10 md:mt-0">
               Directions

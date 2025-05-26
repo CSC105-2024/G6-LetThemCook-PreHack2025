@@ -1,6 +1,7 @@
 import { db } from "../index.ts";
 import {hash, compare} from 'bcrypt';
-
+import { writeFile } from "fs/promises";
+import path from "path";
 export const createUser = async (email:string ,username:string , password:string, bio:string, pfpURL:string )=>{
     const hashedPassword = await hash(password,10);
     return db.user.create({
@@ -58,3 +59,15 @@ export const getUserData = async (userId: number) => {
     },
   });
 };
+
+export const handleProfileImgUpdate = async (file:File): Promise<string>=>{
+    const buffer = await file.arrayBuffer();
+    const filename = `${Date.now()}-${file.name}`;
+    const filePath = path.join("uploads",filename);
+    await writeFile(filePath,Buffer.from(buffer));
+    return `/uploads/${filename}`;
+}
+
+
+
+

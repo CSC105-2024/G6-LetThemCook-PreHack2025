@@ -46,7 +46,7 @@ function Editor() {
         editingRecipe.steps.map((s)=>(typeof s === "string" ? s : s.Step_description
  ?? "")):[""]
       );
-      setImagePreview(editingRecipe.image ? `http://localhost:3000${editingRecipe.image}` : null );
+      setImagePreview(editingRecipe.image ? `http://localhost:3000${editingRecipe.image}` : "/userProfile/noImg.png");
     }
 },[editMode,editingRecipe]);
 
