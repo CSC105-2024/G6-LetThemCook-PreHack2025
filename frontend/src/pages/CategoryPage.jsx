@@ -109,7 +109,7 @@ function CategoryPage() {
                   <div onClick={()=>nav(`/recipe/${food.id}`)} className="w-full max-w-[450px] h-[240px] overflow-hidden rounded-xl shadow-md">
                     <div className="imgbox w-100 h-full bg-cover bg-center"
                     style={{
-                      backgroundImage:`url(http://localhost:3000${food.image})`
+                      backgroundImage:`url(${food.image ? `http://localhost:3000${food.image}`:"/userProfile/noImg.png"})`
                     }}
                     >
                     </div>
