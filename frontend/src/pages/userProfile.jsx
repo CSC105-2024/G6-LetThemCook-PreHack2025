@@ -38,11 +38,12 @@ function UserProfile() {
             setUserRecipeList(userRecipe);
             if(userData){
                 setUsername(userData.username || "Guest");
-                setBio(userData.bio || "hold up, let me cook.");
-                setProfileURL(userData.pfpURL || defaulticon); // replace with your image key
+                setBio(userData.bio || "hold up, let me cook."); // replace with your image key
                 setTmpUsername(userData.username || "Guest");
                 setTmpBio(userData.bio || "hold up, let me cook.");
-                setTmpProfileURL(userData.pfpURL || defaulticon);
+                const fallbackPfp = userData.pfpURL ? userData.pfpURL : defaulticon;
+                  setProfileURL(fallbackPfp);
+                setTmpProfileURL(fallbackPfp);
             }
         
     }catch (error) {
@@ -173,7 +174,14 @@ function UserProfile() {
             </h1>
             <div className="flex items-center">
               <div className="w-24 h-24 rounded-full overflow-hidden flex items-center flex-shrink-0 justify-center">
-                <img src={`http://localhost:3000${profileURL}`} className="w-full h-full object-cover" />
+               <img
+  src={
+   profileURL === defaulticon ? defaulticon : profileURL.startsWith("blob:")? profileURL : 
+       `http://localhost:3000${profileURL}`
+  }
+  className="w-full h-full object-cover"
+/>
+
               </div>
               <div className="ml-3 w-full px-2 py-2 ">
                 <p className="text-2xl font-semibold">{username}</p>
@@ -205,7 +213,9 @@ function UserProfile() {
                         className=" cursor-pointer opacity-100 transition duration-300 ease-in-out hover:opacity-50"
                       >
                         <img
-                        src={tmpProfileURL.startsWith("blob:") ? tmpProfileURL : `http://localhost:3000${tmpProfileURL}`}
+                        src={
+                          profileURL === defaulticon? defaulticon : profileURL.startsWith("blob:")? profileURL:`http://localhost:3000${profileURL}`
+                        }
                         className="md:w-20 md:h-20 w-16 h-16 rounded-full object-cover"
                         />
 
