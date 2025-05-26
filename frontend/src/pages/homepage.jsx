@@ -12,6 +12,7 @@ const internationalFoods = [
   },
   { name: "Italian Food", img: "/Homepage/ItalianF.svg", slug: "italian-food" },
   { name: "Korean Food", img: "/Homepage/KoreanF.svg", slug: "korean-food" },
+  { name: "Other Food", img: "/Homepage/Other_IndianF.jpg", slug: "other-food" },
 ];
 
 const foodCategories = [
@@ -19,6 +20,7 @@ const foodCategories = [
   { name: "Fried", img: "/Homepage/Fried.svg", slug: "fried" },
   { name: "Boiled", img: "/Homepage/Boiled.svg", slug: "boiled" },
   { name: "Soup", img: "/Homepage/Soup.svg", slug: "soup" },
+  { name: "Other", img: "/Homepage/Other_category.jpg", slug: "other" },
 ];
 
 function HomePage() {

@@ -13,10 +13,12 @@ const slugToName = {
   "italian-food": "Italian Food",
   "japanese-food": "Japanese Food",
   "korean-food": "Korean Food",
-  dessert: "Food Categories / Dessert",
-  fried: "Food Categories / Fried",
-  boiled: "Food Categories / Boiled",
-  soup: "Food Categories / Soup",
+  "other-food": "Other Food",
+  "dessert": "Food Categories / Dessert",
+  "fried": "Food Categories / Fried",
+  "boiled": "Food Categories / Boiled",
+  "soup": "Food Categories / Soup",
+  "other": "Food Categories / Other",
 };
 function CategoryPage() {
   const [allFood, setAllFood] = useState([]);
@@ -25,10 +27,12 @@ function CategoryPage() {
     "italian-food": allFood.filter((food) => food.nationality == "Italian"),
     "japanese-food": allFood.filter((food) => food.nationality == "Japanese"),
     "korean-food": allFood.filter((food) => food.nationality == "Korean"),
+    "other-food": allFood.filter((food) => food.nationality == "Other"),
     "dessert": allFood.filter((food) => food.category == "Dessert"),
     "fried": allFood.filter((food) => food.category == "Fried"),
     "boiled": allFood.filter((food) => food.category == "Boiled"),
     "soup": allFood.filter((food) => food.category == "Soup"),
+    "other": allFood.filter((food) => food.category == "Other"),
   };
 
   const { type } = useParams();

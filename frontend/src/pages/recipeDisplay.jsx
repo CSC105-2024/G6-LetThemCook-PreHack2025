@@ -38,7 +38,14 @@ function RecipeDisplay() {
           />
           </div>
           <div className="flex-1">
-            <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-4 font-serif4">{recipe.title}</h1>
+            <div className="text-topic flex flex-col mb-3 gap-3 items-center md:items-baseline">
+                <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold font-serif4">{recipe.title}</h1>
+                <div className="classifly flex flex-row gap-2 ">
+                    <p>Nationality:<span className="font-thin"> {recipe.nationality}</span></p>
+                    <p>Category:<span className="font-thin"> {recipe.category}</span></p>
+                    <p></p>
+                </div>
+            </div>
             <hr/>
             <p className="text-gray-600 md:text-lg mt-2">{recipe.description}</p>
             <div className="flex items-center mt-4 gap-2">
@@ -67,7 +74,7 @@ function RecipeDisplay() {
             </h2>
             <ol className="list-decimal">
               {(recipe.steps ?? []).map((item,index)=>(
-                <li key={index}>{item.Step_description}</li>
+                <li  key={index}>{item.Step_description}</li>
               ))}
             </ol>
           </div>
