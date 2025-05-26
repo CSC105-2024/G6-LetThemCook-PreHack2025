@@ -214,7 +214,7 @@ function UserProfile() {
                       >
                         <img
                         src={
-                          profileURL === defaulticon? defaulticon : profileURL.startsWith("blob:")? profileURL:`http://localhost:3000${profileURL}`
+                          tmpProfileURL === defaulticon? defaulticon : tmpProfileURL.startsWith("blob:")? tmpProfileURL:`http://localhost:3000${tmpProfileURL}`
                         }
                         className="md:w-20 md:h-20 w-16 h-16 rounded-full object-cover"
                         />
