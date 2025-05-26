@@ -32,7 +32,7 @@ function RecipeDisplay() {
         <div className="flex  flex-col md:flex-row gap-6 mt-10">
           <div className="img-box flex items-center justify-center">
           <img
-            src={`http://localhost:3000${recipe.image}`}
+            src={ recipe.image ? `http://localhost:3000${recipe.image}`:"/userProfile/noImg.png"}
             alt="Recipe"
             className="w-100 md:w-130  rounded-md"
           />

@@ -1,4 +1,5 @@
 import defaulticon from "/userProfile/defaulticon.png";
+import noImg from '/userProfile/noImg.png'
 import recipebook from "/userProfile/recipe-book.svg";
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/navbar";
@@ -276,7 +277,7 @@ function UserProfile() {
                           >
                             <img
                               className="aspect-[4/3] object-cover rounded-lg shadow-md"
-                              src={`http://localhost:3000${re.image}`}
+                              src={re.image ?`http://localhost:3000${re.image}`: "/userProfile/noImg.png"}
                               alt={re.title}
                               onClick={() => nav(`/recipe/${re.id}`)}
                             />

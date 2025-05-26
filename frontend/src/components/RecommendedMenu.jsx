@@ -59,11 +59,11 @@ function RecommendedMenu() {
               className="flex flex-col cursor-pointer items-center w-full max-w-[300px] md:max-w-[400px]"
             >
               <img
-                src={`http://localhost:3000${menu.image}`} 
+                src={menu.image ? `http://localhost:3000${menu.image}`: "/userProfile/noImg.png"} 
                 alt={menu.title}
                 className="w-100 h-auto aspect-[4/3] object-cover rounded-lg shadow-md"
               />
-              <p className="mt-3 font-semibold text-center text-lg">{menu.name}</p>
+              <p className="mt-3 font-semibold text-center text-lg">{menu.title}</p>
             </div>
           ))}
         </div>

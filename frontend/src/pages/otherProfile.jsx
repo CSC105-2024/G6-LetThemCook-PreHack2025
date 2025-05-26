@@ -80,7 +80,7 @@ function OtherProfilePage() {
                           className="flex flex-col w-full max-w-[240px]"
                         >
                           <img
-                             src={`http://localhost:3000${re.image}`} 
+                             src={re.image ? `http://localhost:3000${re.image}`: "/userProfile/noImg.png"} 
                             className="aspect-[4/3] object-cover rounded-lg shadow-md cursor-pointer"
                             
                           />
