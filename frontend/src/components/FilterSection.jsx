@@ -52,8 +52,8 @@ function FilterSection({ isOnCountryChoosePage }) {
     <div className=" max-w-xl p-6 mt-10 bg-white shadow-lg rounded-lg border">
       <div>
         <h2 className="font-semibold mb-2">Nationality</h2>
-        <div className="grid grid-cols-2 gap-x-2 gap-y-2 md:grid-cols-4">
-          {["Thai", "Japanese", "Italian", "Korean"].map((n) => (
+        <div className="grid grid-cols-2 gap-x-2 gap-y-2 md:grid-cols-5">
+          {["Thai", "Japanese", "Italian", "Korean","Other"].map((n) => (
             <label
               key={n}
               className="flex items-center w-full text-sm sm:text-base min-w-[120px]"
@@ -72,8 +72,8 @@ function FilterSection({ isOnCountryChoosePage }) {
 
       <div className="mt-4">
         <h2 className="font-semibold mb-2">Category</h2>
-        <div className="grid grid-cols-2 gap-x-2 gap-y-2 md:grid-cols-4">
-          {["Dessert", "Fried", "Boiled", "Soup"].map((c) => (
+        <div className="grid grid-cols-2 gap-x-2 gap-y-2 md:grid-cols-5">
+          {["Dessert", "Fried", "Boiled", "Soup","Other"].map((c) => (
             <label
               key={c}
               className="flex items-center w-full text-sm sm:text-base min-w-[120px]"

@@ -14,7 +14,6 @@ import ScrollToTop from './services/scrollToTop';
 import UserProfile from './pages/userProfile';
 import OtherProfilePage from './pages/otherProfile';
 import RecipeDisplay from './pages/recipeDisplay';
-import fakeRecipe from './components/fakeRecipe'
 import ProtectedLayout from './components/protectedLayout';
 import NotFoundPage from './pages/NotFound';
 const router = createBrowserRouter([

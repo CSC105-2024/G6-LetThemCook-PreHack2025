@@ -213,6 +213,7 @@ function Editor() {
                 <option>Japanese</option>
                 <option>Italian</option>
                 <option>Korean</option>
+                <option>Other</option>
               </select>
             </div>
             <div className="md:w-1/2 flex flex-col gap-2">
@@ -226,7 +227,7 @@ function Editor() {
                 <option>Fried</option>
                 <option>Boiled</option>
                 <option>Soup</option>
-                <option>Others</option>
+                <option>Other</option>
               </select>
             </div>
           </div>
