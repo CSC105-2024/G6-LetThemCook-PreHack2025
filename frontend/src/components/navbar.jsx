@@ -118,7 +118,11 @@ function NavBar() {
             onClick={handleProfileClick}
           >
             <img
-              src="/Homepage/profile.jpg"
+              src={
+                userProfilePfp
+                  ? `http://localhost:3000${userProfilePfp}`
+                  : "/userProfile/defaulticon.png"
+              }
               className="w-10 h-10 rounded-full"
             />
             <div>

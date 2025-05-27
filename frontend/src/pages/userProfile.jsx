@@ -53,35 +53,6 @@ function UserProfile() {
    }
    loadUserDataandRecipe();
   }, []);
-  /**
-   * 
-   * useEffect(() => {
-   const loadUserDataandRecipe = async ()=>{
-    try{
-        const userRecipe = await fetchMyRecipe();
-        setUserRecipeList(userRecipe);
-        if(userRecipe.length>0){
-            const userId = userRecipe[0].userId;
-            setuserId(userId);
-            const userData = await fetchUserData(userId);
-            setUserData(userData);
-            if(userData){
-                setUsername(userData.username || "Guest");
-                setBio(userData.bio || "hold up, let me cook.");
-                setProfileURL(userData.pfpURL || defaulticon); // replace with your image key
-                setTmpUsername(userData.username || "Guest");
-                setTmpBio(userData.bio || "hold up, let me cook.");
-                setTmpProfileURL(userData.pfpURL || defaulticon);
-            }
-        }
-    }catch (error) {
-      console.error("Error loading user data:", error);
-    }
-   }
-   loadUserDataandRecipe();
-  }, []);
-   * 
-   */
   console.log(userRecipeList);
   console.log(userData);
   const totalPages = Math.ceil(userRecipeList.length / itemsPerPage);

@@ -48,10 +48,10 @@ function OtherProfilePage() {
             <div className="flex items-center">
               <div className="w-24 h-24 rounded-full overflow-hidden flex items-center flex-shrink-0 justify-center">
                 <img
-                  src={profileURL ?`http://localhost:3000${profileURL}`: defaulticon}
+                  src={profileURL && profileURL !== defaulticon ? `http://localhost:3000${profileURL}` : defaulticon}
                   className="w-full h-full object-cover"
                   alt="Profile"
-                />
+              />
               </div>
               <div className="ml-3 w-full px-2 py-2">
                 <p className="text-2xl font-semibold">{username}</p>
