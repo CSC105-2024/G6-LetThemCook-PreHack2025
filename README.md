@@ -64,18 +64,18 @@ LetThemCook is a web applicaton that allows users to share their recipes like a 
 |POST  |/auth/signup| Sign up new user account  |
 |POST  |/auth/login| Login using username and password  |
 |PATCH  |/auth/updated-Profile| Update user profile information  |
-|GET  |/auth/getUserData/:userId| Fetch user data by ID  |
+|GET  |/auth/getUserData/:userId| Fetch user data by userId  |
 |POST |/auth/upload-profile-img| Update user's profile image  |
 - Post Recipes
 
 |Method|Endpoint |Description                |
 |------|---------|---------------------------|
 |GET  |/recipe/all| Fetch all recipes  |
-|GET  |/recipe/:id| Fetch a recipe by ID |
+|GET  |/recipe/:id| Fetch a recipe by recipe's ID |
 |(ALL)  |*|  Apply authentication middleware for only the routes listed below (excluding GET ``/recipe/all`` and GET ``/recipe/:id)`` |
 |GET  |/recipe| Fetch recipes (with filter, if applicable) |
 |POST  |/recipe/addRecipe| Create a new recipe |
-|DELETE  |/recipe/:id| Delete a recipe by ID |
+|DELETE  |/recipe/:id| Delete a recipe by recipe's ID |
 |PATCH  |/recipe/:id| Edit a recipe by ID |
 
 \
