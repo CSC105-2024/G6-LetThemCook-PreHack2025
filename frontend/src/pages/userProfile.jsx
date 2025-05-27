@@ -23,7 +23,7 @@ function UserProfile() {
   const [userRecipeList, setUserRecipeList] = useState([]);
   const toggleDropdown = () => setIsOpen(!isOpen);
   const [page, setPage] = useState(0);
-  const itemsPerPage = 9;
+  const itemsPerPage = 6;
   const [userData, setUserData] = useState(null);
   const [getuserId,setuserId] = useState(0);
   
