@@ -1,27 +1,34 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { fetchUserData } from '../services/getUserProifleData';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPenToSquare,
+  faBars,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { fetchUserData } from "../services/getUserProifleData";
 
 function NavBar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [userProfilePfp , setUserProfilePfp]= useState("");
+  const [userProfilePfp, setUserProfilePfp] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
-  const userId = parseInt(localStorage.getItem("userId"))
-  useEffect(()=>{
-    const loadUserData = async ()=>{
-      try{
+  const userId = parseInt(localStorage.getItem("userId"));
+  useEffect(() => {
+    const loadUserData = async () => {
+      try {
         const userData = await fetchUserData(userId);
-        setUserProfilePfp(userData.pfpURL)
-
-      }catch(error){
+        setUserProfilePfp(userData.pfpURL);
+        setUsername(userData.username);
+        setEmail(userData.email);
+      } catch (error) {
         console.error("Error fetching recipes:", error);
       }
-    }
+    };
     loadUserData();
-  })
+  });
   const handleProfileClick = () => {
     setDropdownOpen(false);
     setSidebarOpen(false);
@@ -39,14 +46,9 @@ function NavBar() {
     navigate("/add-recipe");
   };
 
-
-
-
   return (
     <>
-
       <div className="bg-[#E9E5DC] flex items-center justify-between px-4 md:px-6 py-3 shadow-md sticky top-0 z-50 w-full">
-        
         <div className="md:hidden">
           <button onClick={() => setSidebarOpen(true)}>
             <FontAwesomeIcon icon={faBars} size="lg" />
@@ -60,7 +62,9 @@ function NavBar() {
             alt="Logo"
             onClick={() => navigate("/homepage")}
           />
-          <h1 className="text-xl font-semibold text-gray-800 font-serif4">LetThemCook</h1>
+          <h1 className="text-xl font-semibold text-gray-800 font-serif4">
+            LetThemCook
+          </h1>
         </div>
         <div className="flex items-center space-x-4">
           <button
@@ -72,7 +76,11 @@ function NavBar() {
           </button>
           <div className="relative hidden md:block">
             <img
-              src={userProfilePfp? `http://localhost:3000${userProfilePfp}`:  "/userProfile/defaulticon.png" } 
+              src={
+                userProfilePfp
+                  ? `http://localhost:3000${userProfilePfp}`
+                  : "/userProfile/defaulticon.png"
+              }
               className="w-10 h-10 rounded-full border cursor-pointer"
               onClick={() => setDropdownOpen(!dropdownOpen)}
             />
@@ -110,12 +118,16 @@ function NavBar() {
             onClick={handleProfileClick}
           >
             <img
-              src="/Homepage/profile.jpg"
+              src={
+                userProfilePfp
+                  ? `http://localhost:3000${userProfilePfp}`
+                  : "/userProfile/defaulticon.png"
+              }
               className="w-10 h-10 rounded-full"
             />
             <div>
-              <p className="font-semibold text-sm">{storedUser.name}</p>
-               <p className="text-xs">{storedUser.email}</p>
+              <p className="font-semibold text-sm">{username}</p>
+              <p className="font-semibold text-sm">{email}</p>
             </div>
           </div>
           <button
@@ -131,4 +143,3 @@ function NavBar() {
 }
 
 export default NavBar;
-

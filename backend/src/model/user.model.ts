@@ -53,6 +53,7 @@ export const getUserData = async (userId: number) => {
     where: { id: userId },
     select: {
       username: true,
+      email:true,
       bio: true,
       pfpURL: true,
       recipe:true

@@ -86,6 +86,9 @@ Prisma.NullTypes = {
  * Enums
  */
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -129,6 +132,33 @@ exports.Prisma.SortOrder = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.UserOrderByRelevanceFieldEnum = {
+  email: 'email',
+  username: 'username',
+  password: 'password',
+  bio: 'bio',
+  pfpURL: 'pfpURL'
+};
+
+exports.Prisma.RecipeOrderByRelevanceFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  image: 'image',
+  category: 'category',
+  nationality: 'nationality'
+};
+
+exports.Prisma.IngredientsOrderByRelevanceFieldEnum = {
+  name: 'name',
+  recipeId: 'recipeId'
+};
+
+exports.Prisma.StepsOrderByRelevanceFieldEnum = {
+  Step_description: 'Step_description',
+  recipeId: 'recipeId'
 };
 
 
@@ -176,7 +206,7 @@ const config = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "sqlite",
+  "activeProvider": "mysql",
   "inlineDatasources": {
     "db": {
       "url": {
@@ -185,8 +215,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n  //shadowDatabaseUrl = env(\"SHADOW_DATABASE_URL\")\n}\n\nmodel User {\n  id       Int      @id @default(autoincrement())\n  email    String   @unique\n  username String   @unique\n  password String\n  bio      String?\n  pfpURL   String?\n  recipe   Recipe[]\n}\n\nmodel Recipe {\n  id          String        @id @default(cuid())\n  userId      Int\n  title       String\n  description String?\n  image       String?\n  createdAt   DateTime      @default(now())\n  category    String\n  nationality String\n  ingredients Ingredients[]\n  user        User          @relation(fields: [userId], references: [id])\n  steps       Steps[]\n\n  @@index([userId], map: \"Recipe_userId_fkey\")\n}\n\nmodel Ingredients {\n  id       Int    @id @default(autoincrement())\n  name     String\n  recipeId String\n  recipe   Recipe @relation(fields: [recipeId], references: [id])\n\n  @@index([recipeId], map: \"Ingredients_recipeId_fkey\")\n}\n\nmodel Steps {\n  id               Int    @id @default(autoincrement())\n  Step_description String\n  recipeId         String\n  recipe           Recipe @relation(fields: [recipeId], references: [id])\n\n  @@index([recipeId], map: \"Steps_recipeId_fkey\")\n}\n",
-  "inlineSchemaHash": "4f26a52203f7004d40d3a8bd092d4c1cb71e27513f9f3e4c72f7ce41fb765995",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider          = \"mysql\"\n  url               = env(\"DATABASE_URL\")\n  shadowDatabaseUrl = env(\"SHADOW_DATABASE_URL\")\n}\n\nmodel User {\n  id       Int      @id @default(autoincrement())\n  email    String   @unique\n  username String   @unique\n  password String\n  bio      String?\n  pfpURL   String?\n  recipe   Recipe[]\n}\n\nmodel Recipe {\n  id          String        @id @default(cuid())\n  userId      Int\n  title       String\n  description String?\n  image       String?\n  createdAt   DateTime      @default(now())\n  category    String\n  nationality String\n  ingredients Ingredients[]\n  user        User          @relation(fields: [userId], references: [id])\n  steps       Steps[]\n\n  @@index([userId], map: \"Recipe_userId_fkey\")\n}\n\nmodel Ingredients {\n  id       Int    @id @default(autoincrement())\n  name     String\n  recipeId String\n  recipe   Recipe @relation(fields: [recipeId], references: [id])\n\n  @@index([recipeId], map: \"Ingredients_recipeId_fkey\")\n}\n\nmodel Steps {\n  id               Int    @id @default(autoincrement())\n  Step_description String\n  recipeId         String\n  recipe           Recipe @relation(fields: [recipeId], references: [id])\n\n  @@index([recipeId], map: \"Steps_recipeId_fkey\")\n}\n",
+  "inlineSchemaHash": "d4c3538c629fd288bf327405a739a1fae114d9f12ab93cad49248f788c425911",
   "copyEngine": true
 }
 config.dirname = '/'
