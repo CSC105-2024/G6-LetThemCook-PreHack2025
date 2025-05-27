@@ -15,7 +15,7 @@ function OtherProfilePage() {
   const [page, setPage] = useState(0);
   const {id:userId} = useParams();
   const nav = useNavigate();
-  const itemsPerPage = 9;
+  const itemsPerPage = 6;
   const totalPages = Math.ceil(recipes.length / itemsPerPage);
   const currentRecipes = recipes.slice(
     page * itemsPerPage,
