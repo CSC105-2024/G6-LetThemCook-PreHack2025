@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 function Login() {
   const nav = useNavigate();
+  const [loginFailText , IsLoginFailText] = useState(false);
   const handleLogin = async () => {
   try {
     const res = await fetch("http://localhost:3000/auth/login", {
@@ -37,7 +38,7 @@ function Login() {
       localStorage.setItem("userId", String(userId));
       nav("/homePage");
     } else {
-      alert(data.msg || "Login failed");
+      IsLoginFailText(true);
     }
   } catch (error) {
     alert("Network error: " + error.message);
@@ -90,6 +91,9 @@ function Login() {
               </div>
             </div>
           </div>
+          {loginFailText && (
+              <p className="text-center text-red-500 mb-3">These credentials do not match our records.</p>
+            )}
           <div className="btn-feild flex justify-center items-center">
             <button onClick={handleLogin} className="bg-[#5C6A51] cursor-pointer rounded-[10px] px-9 py-4 font-bold text-white text-md">
               Login
