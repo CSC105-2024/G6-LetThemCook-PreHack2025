@@ -85,20 +85,14 @@ LetThemCook is a web applicaton that allows users to share their recipes like a 
    ```bash
    cd backend
    ```
-3. Install dependencies:
+2. Install dependencies:
    ```bash
    npm install
    ```
-4. Create a .env file and configure the following variables
-   ```bash
-   DATABASE_URL = "mysql://user6:zM9XppTAnD1U@cshackathon.sit.kmutt.ac.th:3306/group6_prehack"
-   SHADOW_DATABASE_URL = "mysql://user6:zM9XppTAnD1U@cshackathon.sit.kmutt.ac.th:3306/group6_prehack_shadow"
-   JWT_SECRET=your_secret_key
-   ```
-5. Start the development server:
+3. Start the development server:
     ```bash
     npm run dev
    ```
-6. The server will be running on [http://localhost:3000](http://localhost:3000)
+4. The server will be running on [http://localhost:3000](http://localhost:3000)
 
 
