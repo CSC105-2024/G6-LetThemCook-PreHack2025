@@ -72,7 +72,7 @@ LetThemCook is a web applicaton that allows users to share their recipes like a 
 |------|---------|---------------------------|
 |GET  |/recipe/all| Fetch all recipes  |
 |GET  |/recipe/:id| Fetch a recipe by ID |
-|(ALL)  |*| Apply authentication middleware for all APIs |
+|(ALL)  |*|  Apply authentication middleware for only the routes listed below (excluding GET ``/recipe/all`` and GET ``/recipe/:id)`` |
 |GET  |/recipe| Fetch recipes (with filter, if applicable) |
 |POST  |/recipe/addRecipe| Create a new recipe |
 |DELETE  |/recipe/:id| Delete a recipe by ID |
